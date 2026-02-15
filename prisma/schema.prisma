@@ -6,3 +6,9 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model Problem {
+  id            Int    @id @default(autoincrement())
+  statement     String
+  correctAnswer String
+}
