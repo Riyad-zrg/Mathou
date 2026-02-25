@@ -1,0 +1,22 @@
+services:
+  mathou-frontend:
+    build:
+      context: ./frontend
+    image: mathou-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=${NODE_ENV}
+    volumes:
+    - ./frontend:/app
+
+  mathou-backend:
+    build:
+      context: ./backend
+    image: mathou-backend
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=${NODE_ENV}
+    volumes:
+    - ./backend:/app
