@@ -1,7 +1,6 @@
-# Build stage
-FROM node:24 AS builder
+FROM node:24 AS dev
 
-WORKDIR /app
+WORKDIR /frontend
 COPY package*.json /.
 
 RUN npm install
