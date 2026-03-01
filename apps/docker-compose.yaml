@@ -1,0 +1,22 @@
+services:
+  app-front:
+    build:
+      context: ./frontend
+    image: app-front
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=${NODE_ENV}
+    volumes:
+      - ./frontend:/frontend
+
+  app-back:
+    build:
+      context: ./backend
+    image: app-back
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=${NODE_ENV}
+    volumes:
+      - ./backend:/backend
