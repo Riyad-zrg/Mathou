@@ -9,6 +9,8 @@ services:
       - NODE_ENV=${NODE_ENV}
     volumes:
       - ./frontend:/frontend
+    depends_on:
+      - app-back
 
   app-back:
     build:
@@ -20,7 +22,15 @@ services:
       - NODE_ENV=${NODE_ENV}
     volumes:
       - ./backend:/backend
-    
+    depends_on:
+      - db
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
   db:
     image: postgres:18
     container_name: db
