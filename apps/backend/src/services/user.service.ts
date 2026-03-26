@@ -28,4 +28,24 @@ export class UserService{
         orderBy,
         });
     }
+
+    async createUser(data: Prisma.UserCreateInput): Promise<User> {
+        return this.prisma.user.create({
+            data,
+        });
+    }
+
+    async updateUser(params : {data: Prisma.UserUpdateInput, where: Prisma.UserWhereInput}): Promise<User> {
+        const {where, data} = params
+        return this.prisma.user.update({
+            data,
+            where,
+        });
+    }
+
+    async deleteUser(where: Prisma.UserWhereInput): Promise<User>{
+        return this.prisma.user.delete({
+            where,
+        });
+    }
 }
