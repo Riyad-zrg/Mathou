@@ -2,20 +2,26 @@ import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "../src/generated/prisma/client.js";
 import "dotenv/config"
 import { Pool } from "pg";
+import bcrypt from "bcrypt";
 
 const connectionString = `${process.env.DATABASE_URL}`;
 const pool = new Pool({ connectionString });
 const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 async function main(){
+    const saltRounds = 10;
+    const myPlaintextPassword = 'johndoeaa'
+    const salt = bcrypt.genSaltSync(saltRounds);
+    const hash = bcrypt.hashSync(myPlaintextPassword, salt); 
+
     const john = await prisma.user.upsert({
         where: { email: "john.doe@gmail.fr"},
         update: {},
         create: {
             email: "john.doe@gmail.fr",
-            firstname: "John",
+            firstname: "Johnaaa",
             lastname: "Doe",
-            password:"johndoe",
+            password:hash,
         },
     });
     console.log(john);
