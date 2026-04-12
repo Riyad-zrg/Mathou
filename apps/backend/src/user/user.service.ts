@@ -7,13 +7,13 @@ import bcrypt from "bcrypt";
 export class UserService{
     constructor(private prisma: PrismaService) {}
 
-    async user(userWhereUniqueInput: Prisma.UserWhereUniqueInput): Promise<User | null>{
+    async findUser(userWhereUniqueInput: Prisma.UserWhereUniqueInput): Promise<User | null>{
         return this.prisma.user.findUnique({
             where: userWhereUniqueInput,
         })
     }
 
-    async users(params:{
+    async findUsers(params:{
         skip?: number;
         take?: number;
         cursor?: Prisma.UserWhereUniqueInput
