@@ -1,21 +1,32 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UserService } from 'src/user/user.service.js';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { UserService } from '../user/user.service.js';
 import bcrypt from "bcrypt";
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-    constructor(private userService : UserService){}
+    constructor(
+        private userService : UserService,
+        private JWTService : JwtService
+    ){}
 
     async signIn(email: string, incomingPassword: string): Promise<any> { /** Ici le type est Promise<any>, il serait plus propre d'utiliser un DTO UserWithoutPassword */
         const user = await this.userService.findUser({email: email});
+
+        if(!user){
+            throw new NotFoundException('Aucun utilisateur avec cette adresse e-mail n\'a été trouvé.');
+        }
+
         const match = await bcrypt.compare(incomingPassword, user.password);
 
         if(!match){
-            throw new UnauthorizedException();
+            throw new UnauthorizedException('Le mot de passe renseigné est incorrect.');
         }
 
-        const {password, ...userWithoutPassword} = user;
+        const payload = { sub: user?.id, username: user?.email}
 
-        return userWithoutPassword;
+        return{
+            access_token: await this.JWTService.signAsync(payload),
+        }
     }
 }
