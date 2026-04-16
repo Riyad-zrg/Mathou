@@ -23,7 +23,7 @@ export class AuthService {
             throw new UnauthorizedException('Le mot de passe renseigné est incorrect.');
         }
 
-        const payload = { sub: user?.id, username: user?.email}
+        const payload = { sub: user?.id, email: user?.email}
 
         return{
             access_token: await this.JWTService.signAsync(payload),
