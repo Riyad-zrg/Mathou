@@ -10,7 +10,7 @@ const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 async function main(){
     const saltRounds = 10;
-    const myPlaintextPassword = 'johndoe'
+    const myPlaintextPassword = 'mypassword'
     const salt = bcrypt.genSaltSync(saltRounds);
     const hash = bcrypt.hashSync(myPlaintextPassword, salt); 
 
@@ -19,7 +19,7 @@ async function main(){
         update: {},
         create: {
             email: "john.doe@gmail.fr",
-            firstname: "Johnaaa",
+            firstname: "John",
             lastname: "Doe",
             password:hash,
         },
