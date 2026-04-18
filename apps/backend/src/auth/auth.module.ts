@@ -7,7 +7,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth.guard.js';
 
 @Module({
-  imports:[UserModule, JwtModule.register({ global: true, secret: process.env.JWT_SECRET, signOptions: {expiresIn: '60s'}})], //global signifie que tu n'as pas besoin d'importer le JWT Module ailleurs dans ton code
+  imports:[UserModule, JwtModule.register({ global: true, secret: process.env.JWT_SECRET, signOptions: {expiresIn: '60s'}})],
   controllers: [AuthController],
   providers: [AuthService, {provide: APP_GUARD, useClass: AuthGuard}],
 })
