@@ -13,7 +13,6 @@ export class AuthController {
         return this.authService.signIn(signInDto.email, signInDto.password);
     }
 
-    @UseGuards(AuthGuard)
     @Get('profile')
     getProfile(@Request() req:any){
         return req.user;
