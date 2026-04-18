@@ -10,7 +10,7 @@ export class AuthService {
         private JWTService : JwtService
     ){}
 
-    async signIn(email: string, incomingPassword: string): Promise<any> { /** Ici le type est Promise<any>, il serait plus propre d'utiliser un DTO UserWithoutPassword */
+    async signIn(email: string, incomingPassword: string): Promise<{ access_token: string; }> {
         const user = await this.userService.findUser({email: email});
 
         if(!user){
