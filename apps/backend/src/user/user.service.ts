@@ -1,18 +1,19 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma/prisma.service.js";
 import { User,Prisma } from "src/generated/prisma/browser.js";
+import bcrypt from "bcrypt";
 
 @Injectable()
 export class UserService{
     constructor(private prisma: PrismaService) {}
 
-    async user(userWhereUniqueInput: Prisma.UserWhereUniqueInput): Promise<User | null>{
+    async findUser(userWhereUniqueInput: Prisma.UserWhereUniqueInput): Promise<User | null>{
         return this.prisma.user.findUnique({
             where: userWhereUniqueInput,
         })
     }
 
-    async users(params:{
+    async findUsers(params:{
         skip?: number;
         take?: number;
         cursor?: Prisma.UserWhereUniqueInput
@@ -30,12 +31,18 @@ export class UserService{
     }
 
     async createUser(data: Prisma.UserCreateInput): Promise<User> {
-        return this.prisma.user.create({
-            data,
-        });
-    }
+        const saltRounds = 10;
+        const myPlaintextPassword = data.password;
 
-    async updateUser(params : {data: Prisma.UserUpdateInput, where: Prisma.UserWhereInput}): Promise<User> {
+        const hash = bcrypt.hashSync(myPlaintextPassword, saltRounds);
+        data.password = hash;
+
+        return this.prisma.user.create({
+            data
+        });
+    };
+
+    async updateUser(params : {data: Prisma.UserUpdateInput, where: Prisma.UserWhereUniqueInput}): Promise<User> {
         const {where, data} = params
         return this.prisma.user.update({
             data,
@@ -43,7 +50,7 @@ export class UserService{
         });
     }
 
-    async deleteUser(where: Prisma.UserWhereInput): Promise<User>{
+    async deleteUser(where: Prisma.UserWhereUniqueInput): Promise<User>{
         return this.prisma.user.delete({
             where,
         });
