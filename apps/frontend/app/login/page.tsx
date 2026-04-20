@@ -15,14 +15,15 @@ export default function LoginForm(){
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            email: "",
-            password: "",
+            email: "john.doe@gmail.fr",
+            password: "mypassword",
         },
     })
 
     async function onSubmit(data: z.infer<typeof formSchema>){
         await fetch(`http://localhost:4000/auth/login`,{
             method: "POST",
+            credentials: 'include',
             headers: {
                 "Content-Type": "application/json",
             },
