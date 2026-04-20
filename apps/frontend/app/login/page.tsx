@@ -2,9 +2,8 @@
 import { Controller, useForm } from "react-hook-form"
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel, FieldLegend, FieldSet } from "@/components/ui/field"
+import { Field, FieldError, FieldGroup, FieldLabel} from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 
 const formSchema = z.object({
@@ -21,9 +20,14 @@ export default function LoginForm(){
         },
     })
 
-    function onSubmit(data: z.infer<typeof formSchema>){
-        // On voudra ici envoyer une requête au serveur pour créer un access token
-        console.log(data);
+    async function onSubmit(data: z.infer<typeof formSchema>){
+        await fetch(`http://localhost:4000/auth/login`,{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({email:data.email, password: data.password})
+        })
     }
 
     return(
@@ -89,6 +93,5 @@ export default function LoginForm(){
                 <a href="example.com">Créer un compte</a>
             </section>
         </div>
-            
     )
 }
