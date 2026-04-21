@@ -4,8 +4,6 @@ import type { NextRequest } from "next/server";
 const PUBLIC_ROUTES = ["/login", "/signup"];
 
 export function proxy(request: NextRequest) {
-    console.log(request.nextUrl, request.url);
-
     const { pathname } = request.nextUrl;
     const token = request.cookies.get("access_token")?.value;
     if (PUBLIC_ROUTES.includes(pathname)) {
