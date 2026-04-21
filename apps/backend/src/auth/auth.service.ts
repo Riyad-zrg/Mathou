@@ -1,7 +1,8 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException, UnauthorizedException} from '@nestjs/common';
 import { UserService } from '../user/user.service.js';
 import bcrypt from "bcrypt";
 import { JwtService } from '@nestjs/jwt';
+import { Response } from 'express';
 
 @Injectable()
 export class AuthService {
@@ -10,7 +11,7 @@ export class AuthService {
         private JWTService : JwtService
     ){}
 
-    async signIn(email: string, incomingPassword: string): Promise<{ access_token: string; }> {
+    async signIn(email: string, incomingPassword: string, response: Response): Promise<void>{
         const user = await this.userService.findUser({email: email});
 
         if(!user){
@@ -25,8 +26,14 @@ export class AuthService {
 
         const payload = { sub: user?.id, email: user?.email}
 
-        return{
-            access_token: await this.JWTService.signAsync(payload),
-        }
+        const access_token = await this.JWTService.signAsync(payload);
+
+        response.cookie('access_token', access_token,{
+            httpOnly: true,
+            // sameSite: 'none', //A décommenter quand secure sur true
+            secure: false, //En dev nous ne sommes pas en https, mis à false pour l'instant mais à remettre à true pour prod
+        })
+
+        response.send('La connexion a réussi.')
     }
 }
