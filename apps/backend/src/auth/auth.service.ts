@@ -32,6 +32,7 @@ export class AuthService {
             httpOnly: true,
             // sameSite: 'none', //A décommenter quand secure sur true
             secure: false, //En dev nous ne sommes pas en https, mis à false pour l'instant mais à remettre à true pour prod
+            maxAge: 1000 * 60 * 15,
         })
 
         response.send('La connexion a réussi.')
