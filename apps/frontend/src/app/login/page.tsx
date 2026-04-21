@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Field, FieldError, FieldGroup, FieldLabel} from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { redirect } from 'next/navigation'
 
 const formSchema = z.object({
     email: z.email('Le format de l\'adresse e-mail est invalide.'),
@@ -21,14 +22,25 @@ export default function LoginForm(){
     })
 
     async function onSubmit(data: z.infer<typeof formSchema>){
-        await fetch(`http://localhost:4000/auth/login`,{
-            method: "POST",
-            credentials: 'include',
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({email:data.email, password: data.password})
-        })
+        try{
+            const response = await fetch(`http://localhost:4000/auth/login`,{
+                method: "POST",
+                credentials: 'include',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({email:data.email, password: data.password})
+            })
+
+            if (!response.ok) {
+                throw new Error(`Response status: ${response.status}`);
+            }
+
+        }catch(error: any){
+            console.error(error.message);
+        } finally {
+            redirect('/');
+        }
     }
 
     return(
