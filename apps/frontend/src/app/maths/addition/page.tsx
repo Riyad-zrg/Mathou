@@ -1,10 +1,10 @@
 'use client'
-import { Input } from "@/components/ui/input";
+import { Input } from "@/src/components/ui/input";
 import {
   Item,
   ItemContent,
   ItemTitle,
-} from "@/components/ui/item"
+} from "@/src/components/ui/item"
 import { randomInt } from "crypto";
 import { useState } from "react";
 

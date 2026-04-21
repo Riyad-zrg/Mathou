@@ -2,9 +2,9 @@
 import { Controller, useForm } from "react-hook-form"
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Field, FieldError, FieldGroup, FieldLabel} from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import { Field, FieldError, FieldGroup, FieldLabel} from "@/src/components/ui/field"
+import { Input } from "@/src/components/ui/input"
+import { Button } from "@/src/components/ui/button"
 import { redirect } from 'next/navigation'
 
 const formSchema = z.object({
