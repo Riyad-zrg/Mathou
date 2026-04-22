@@ -1,4 +1,4 @@
-async function getUserById(id:number){
+export async function getUserById(id:number){
     const url = `http://localhost:4000/users/${id}`;
     try {
     const response = await fetch(url);
