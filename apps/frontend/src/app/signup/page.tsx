@@ -6,6 +6,7 @@ import { Field, FieldError, FieldGroup, FieldLabel} from "@/src/components/ui/fi
 import { Input } from "@/src/components/ui/input"
 import { Button } from "@/src/components/ui/button"
 import { fetchAccessToken } from "@/src/services/auth.service"
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/src/components/ui/breadcrumb"
 
 const formSchema = z.object({
     email: z.email('Le format de l\'adresse e-mail est invalide.'),
@@ -28,84 +29,96 @@ export default function LoginForm(){
     }
 
     return(
-        <div className="flex flex-col w-full p-8 main">
-            <section className="text-center text-2xl font-semibold">
-                Créer un compte
-            </section>
+    <div className="flex flex-col w-full p-8 main">
+        <Breadcrumb>
+            <BreadcrumbList>
+                <BreadcrumbItem>
+                    <BreadcrumbLink href="/login">Connexion</BreadcrumbLink>
+                </BreadcrumbItem>
+            <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                    <BreadcrumbPage>Créer un compte</BreadcrumbPage>
+                </BreadcrumbItem>
+            </BreadcrumbList>
+        </Breadcrumb>
 
-            <form id="login-form" onSubmit={form.handleSubmit(onSubmit)}>
-                <FieldGroup className="pb-5">
-                    <Controller
-                        name="email"
-                        control={form.control}
-                        render={({field, fieldState}) =>(
-                        <Field data-invalid={fieldState.invalid}>
-                            <FieldLabel htmlFor="email">E-mail</FieldLabel>
-                            <Input
-                                {...field}
-                                id="email"
-                                aria-invalid={fieldState.invalid}
-                                placeholder="prenom.nom@domaine.com"
-                                required
-                                autoComplete="off"
-                            />
-                            {fieldState.invalid && (
-                                <FieldError errors={[fieldState.error]}/>
-                            )}
-                        </Field>
-                        )}
-                    />
-                    <Controller
-                        name="firstname"
-                        control={form.control}
-                        render={({field, fieldState}) =>(
-                        <Field data-invalid={fieldState.invalid}>
-                            <FieldLabel htmlFor="email">Prénom</FieldLabel>
-                            <Input
-                                {...field}
-                                id="firstname"
-                                aria-invalid={fieldState.invalid}
-                                placeholder="John"
-                                required
-                                autoComplete="off"
-                            />
-                            {fieldState.invalid && (
-                                <FieldError errors={[fieldState.error]}/>
-                            )}
-                        </Field>
-                        )}
-                    />
-                    <Controller
-                        name="lastname"
-                        control={form.control}
-                        render={({field, fieldState}) =>(
-                        <Field data-invalid={fieldState.invalid}>
-                            <FieldLabel htmlFor="email">Nom de famille</FieldLabel>
-                            <Input
-                                {...field}
-                                id="lastname"
-                                aria-invalid={fieldState.invalid}
-                                placeholder="Doe"
-                                required
-                                autoComplete="off"
-                            />
-                            {fieldState.invalid && (
-                                <FieldError errors={[fieldState.error]}/>
-                            )}
-                        </Field>
-                        )}
-                    />
-                    
-                </FieldGroup>
-            </form>
+        <section className="text-center text-2xl font-semibold">
+            Créer un compte
+        </section>
 
-            <Button type="submit" form="login-form">
-                Suivant
-            </Button>
+        <form id="login-form" onSubmit={form.handleSubmit(onSubmit)}>
+            <FieldGroup className="pb-5">
+                <Controller
+                    name="email"
+                    control={form.control}
+                    render={({field, fieldState}) =>(
+                    <Field data-invalid={fieldState.invalid}>
+                        <FieldLabel htmlFor="email">E-mail</FieldLabel>
+                        <Input
+                            {...field}
+                            id="email"
+                            aria-invalid={fieldState.invalid}
+                            placeholder="prenom.nom@domaine.com"
+                            required
+                            autoComplete="off"
+                        />
+                        {fieldState.invalid && (
+                            <FieldError errors={[fieldState.error]}/>
+                        )}
+                    </Field>
+                    )}
+                />
+                <Controller
+                    name="firstname"
+                    control={form.control}
+                    render={({field, fieldState}) =>(
+                    <Field data-invalid={fieldState.invalid}>
+                        <FieldLabel htmlFor="email">Prénom</FieldLabel>
+                        <Input
+                            {...field}
+                            id="firstname"
+                            aria-invalid={fieldState.invalid}
+                            placeholder="John"
+                            required
+                            autoComplete="off"
+                        />
+                        {fieldState.invalid && (
+                            <FieldError errors={[fieldState.error]}/>
+                        )}
+                    </Field>
+                    )}
+                />
+                <Controller
+                    name="lastname"
+                    control={form.control}
+                    render={({field, fieldState}) =>(
+                    <Field data-invalid={fieldState.invalid}>
+                        <FieldLabel htmlFor="email">Nom de famille</FieldLabel>
+                        <Input
+                            {...field}
+                            id="lastname"
+                            aria-invalid={fieldState.invalid}
+                            placeholder="Doe"
+                            required
+                            autoComplete="off"
+                        />
+                        {fieldState.invalid && (
+                            <FieldError errors={[fieldState.error]}/>
+                        )}
+                    </Field>
+                    )}
+                />
+                
+            </FieldGroup>
+        </form>
 
-            <section className="text-blue-500 text-center pt-5 text-sm">
-                <a href="/login">Déja un compte ? Se connecter</a>
-            </section>
-        </div>
+        <Button type="submit" form="login-form">
+            Suivant
+        </Button>
+
+        <section className="text-blue-500 text-center pt-5 text-sm">
+            <a href="/login">Déja un compte ? Se connecter</a>
+        </section>
+    </div>
     )
 }
