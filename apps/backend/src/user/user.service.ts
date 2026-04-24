@@ -13,6 +13,10 @@ export class UserService{
         })
     }
 
+    async findAll(){
+        return this.prisma.user.findMany();
+    }
+
     async findUsers(params:{
         skip?: number;
         take?: number;

@@ -10,7 +10,7 @@ const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 async function main(){
     const saltRounds = 10;
-    const myPlaintextPassword = 'mypassword'
+    const myPlaintextPassword = 'Mypassword123!'
     const salt = bcrypt.genSaltSync(saltRounds);
     const hash = bcrypt.hashSync(myPlaintextPassword, salt); 
 
