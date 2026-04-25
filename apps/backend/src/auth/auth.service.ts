@@ -4,12 +4,14 @@ import bcrypt from "bcrypt";
 import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
 import { User } from 'src/generated/prisma/client.js';
+import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class AuthService {
     constructor(
         private userService : UserService,
-        private JWTService : JwtService
+        private JWTService : JwtService,
+        private readonly mailer : MailerService,
     ){}
 
     async signUp(email:string, firstname: string, lastname:string): Promise<{ message: string }>{
@@ -33,7 +35,11 @@ export class AuthService {
 
         const verificationToken = this.generateVerificationToken(temporaryUser);
 
-        console.log(`Token pour ${temporaryUser.email} : ${verificationToken}`);
+        await this.mailer.sendMail({
+            to: email,
+            subject: 'Confirmation d\'adresse e-mail',
+            text: verificationToken,
+        })
 
         return ({message: 'Merci de vérifier votre adresse e-mail.'});
     }
