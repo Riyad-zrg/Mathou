@@ -6,9 +6,22 @@ import { PrismaModule } from './prisma/prisma.module.js';
 import { AuthModule } from './auth/auth.module.js';
 import { LoggerMiddleware } from './middleware/logger.middleware.js';
 import { UserModule } from './user/user.module.js';
+import { MailerModule } from '@nestjs-modules/mailer';
 
 @Module({
-  imports: [ConfigModule.forRoot({isGlobal: true}), PrismaModule, AuthModule, UserModule],
+  imports: [ConfigModule.forRoot({envFilePath: '.env', isGlobal: true}), PrismaModule, AuthModule, UserModule,
+    MailerModule.forRoot({
+      transport: {
+        host: process.env.MAILER_HOST,
+        port: process.env.MAILER_PORT,
+        secure: false,
+        auth: {
+          user: process.env.MAILER_USERNAME,
+          pass: process.env.MAILER_PASSWORD,
+        },
+      },
+    })
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
