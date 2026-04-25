@@ -5,9 +5,9 @@ import { Card, CardContent} from "@/src/components/ui/card";
 import { useSearchParams } from 'next/navigation'
 
 export default function verifyEmailPage(){
-    const searchParamas = useSearchParams();
+    const searchParams = useSearchParams();
 
-    const userEmail = searchParamas.get("email");
+    const userEmail = searchParams.get("email");
 
     return(
         <div className="flex flex-col text-center w-full p-8 gap-8 main">
