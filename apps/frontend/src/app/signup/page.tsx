@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Field, FieldError, FieldGroup, FieldLabel} from "@/src/components/ui/field"
 import { Input } from "@/src/components/ui/input"
 import { Button } from "@/src/components/ui/button"
-import { fetchAccessToken } from "@/src/services/auth.service"
+import { signUp } from "@/src/services/auth.service"
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/src/components/ui/breadcrumb"
 
 const formSchema = z.object({
@@ -25,7 +25,7 @@ export default function LoginForm(){
     })
 
     async function onSubmit(data: z.infer<typeof formSchema>){
-        fetchAccessToken(data);
+        signUp(data);
     }
 
     return(

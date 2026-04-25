@@ -3,6 +3,7 @@ import { AuthService } from './auth.service.js';
 import { SignInDto } from './dto/sign-in.dto.js';
 import { Public } from '../common/decorators/public.decorator.js';
 import type { Response as ExpressResponse} from 'express';
+import { SignUpDto } from './dto/sign-up.dto.js';
 
 @Controller('auth')
 export class AuthController {
@@ -16,6 +17,14 @@ export class AuthController {
         @Response({passthrough:true}) response:ExpressResponse
     ) {
         return this.authService.signIn(signInDto.email, signInDto.password, response);
+    }
+
+    @Public()
+    @Post('signup')
+    signUp(
+        @Body() signUpDto: SignUpDto
+    ){
+        return this.authService.signUp(signUpDto.email, signUpDto.firstname, signUpDto.lastname);
     }
 
     @Get('profile')

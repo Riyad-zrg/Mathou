@@ -1,8 +1,9 @@
-import { Injectable, NotFoundException, UnauthorizedException} from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException, UnauthorizedException} from '@nestjs/common';
 import { UserService } from '../user/user.service.js';
 import bcrypt from "bcrypt";
 import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
+import { User } from 'src/generated/prisma/client.js';
 
 @Injectable()
 export class AuthService {
@@ -10,6 +11,32 @@ export class AuthService {
         private userService : UserService,
         private JWTService : JwtService
     ){}
+
+    async signUp(email:string, firstname: string, lastname:string): Promise<{ message: string }>{
+        const existingUser = await this.userService.findUser({email});
+
+        if(existingUser){
+            throw new BadRequestException('This e-mail is already used by another account.')
+        }
+
+        const expiresDate = new Date();
+        expiresDate.setMinutes(expiresDate.getMinutes() + 15);
+
+        const temporaryUser = await this.userService.createUser({
+            email : email,
+            firstname : firstname,
+            lastname : lastname,
+            password:  Math.random().toString(36).substring(2, 12),
+            isEmailVerified: false,
+            emailVerifExpires : expiresDate,
+        })
+
+        const verificationToken = this.generateVerificationToken(temporaryUser);
+
+        console.log(`Token pour ${temporaryUser.email} : ${verificationToken}`);
+
+        return ({message: 'Merci de vérifier votre adresse e-mail.'});
+    }
 
     async signIn(email: string, incomingPassword: string, response: Response): Promise<void>{
         const user = await this.userService.findUser({email: email});
@@ -36,5 +63,13 @@ export class AuthService {
         })
 
         response.send('La connexion a réussi.')
+    }
+
+    private generateVerificationToken(user: User): string {
+        const payload = {sub: user.id, email: user.email};
+
+        return this.JWTService.sign(payload, {
+            expiresIn: '15m', 
+        });
     }
 }
