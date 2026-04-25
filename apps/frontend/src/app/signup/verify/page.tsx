@@ -1,5 +1,6 @@
 'use client'
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from "@/src/components/ui/breadcrumb";
+import { Button } from "@/src/components/ui/button";
 import { Card, CardContent} from "@/src/components/ui/card";
 import { useSearchParams } from 'next/navigation'
 
@@ -9,7 +10,7 @@ export default function verifyEmailPage(){
     const userEmail = searchParamas.get("email");
 
     return(
-        <div className="flex flex-col w-full p-8 main">
+        <div className="flex flex-col text-center w-full p-8 gap-8 main">
             <Breadcrumb>
                 <BreadcrumbList>
                     <BreadcrumbItem>
@@ -26,11 +27,19 @@ export default function verifyEmailPage(){
                 </BreadcrumbList>
             </Breadcrumb>
 
-            <Card>
-                <CardContent>
-                    <p>Un lien d'activation de compte à été envoyé à l'adresse e-mail <span className="font-medium">{userEmail}</span></p>
-                </CardContent>
-            </Card>
+            <div className="flex flex-col w-full place-items-center gap-8">
+                <Card className="flex flex-col w-8/10 h-50 justify-center text-base">
+                    <CardContent>
+                        <p>Un courriel pour activer votre compte à été envoyé à l'adresse e-mail <span className="font-medium">{userEmail}</span></p>
+                    </CardContent>
+                </Card>
+                
+                <a href="/" className="w-4/10">
+                    <Button className="w-full">
+                        Retourner à l'accueil
+                    </Button>
+                </a>
+            </div>
         </div>
     )
 }
