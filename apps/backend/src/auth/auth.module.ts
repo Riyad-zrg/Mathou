@@ -5,9 +5,10 @@ import { UserModule } from '../user/user.module.js';
 import { JwtModule } from '@nestjs/jwt';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth.guard.js';
+import { MailerModule } from '@nestjs-modules/mailer';
 
 @Module({
-  imports:[UserModule, JwtModule.register({ global: true, secret: process.env.JWT_SECRET, signOptions: {expiresIn: '60s'}})],
+  imports:[UserModule, JwtModule.register({ global: true, secret: process.env.JWT_SECRET, signOptions: {expiresIn: '60s'}}), MailerModule],
   controllers: [AuthController],
   providers: [AuthService, {provide: APP_GUARD, useClass: AuthGuard}],
 })
