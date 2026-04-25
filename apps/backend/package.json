@@ -22,6 +22,7 @@
     "db": "npx prisma migrate reset -f && npx prisma db seed"
   },
   "dependencies": {
+    "@nestjs-modules/mailer": "^2.3.4",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.3",
     "@nestjs/core": "^11.0.1",
@@ -33,6 +34,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.15.1",
     "cookie-parser": "^1.4.7",
+    "nodemailer": "^8.0.6",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
   },
