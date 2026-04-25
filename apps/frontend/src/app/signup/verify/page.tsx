@@ -1,13 +1,12 @@
 'use client'
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from "@/src/components/ui/breadcrumb";
 import { Card, CardContent} from "@/src/components/ui/card";
+import { useSearchParams } from 'next/navigation'
 
 export default function verifyEmailPage(){
-    const queryString = window.location.search;
-    
-    const params = new URLSearchParams(queryString);
+    const searchParamas = useSearchParams();
 
-    const userEmail = params.get("email");
+    const userEmail = searchParamas.get("email");
 
     return(
         <div className="flex flex-col w-full p-8 main">
