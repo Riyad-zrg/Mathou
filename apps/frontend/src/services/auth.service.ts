@@ -39,6 +39,6 @@ export async function signUp(data: any){
         }catch(error: any){
             console.error(error.message);
         } finally {
-            redirect('/signup/verify');
+            redirect(`/signup/verify?email=${data.email}`);
     }
 }
