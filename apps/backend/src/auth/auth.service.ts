@@ -38,7 +38,7 @@ export class AuthService {
         await this.mailer.sendMail({
             to: email,
             subject: 'Confirmation d\'adresse e-mail',
-            text: verificationToken,
+            text: `Voici le lien pour vérifier votre adresse e-mail : http://localhost:4000/verify?access_token=${verificationToken}`,
         })
 
         return ({message: 'Merci de vérifier votre adresse e-mail.'});
