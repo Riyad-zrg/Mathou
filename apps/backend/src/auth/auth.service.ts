@@ -1,10 +1,17 @@
-import { BadRequestException, Injectable, NotFoundException, UnauthorizedException} from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException, PreconditionFailedException, UnauthorizedException} from '@nestjs/common';
 import { UserService } from '../user/user.service.js';
 import bcrypt from "bcrypt";
 import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
 import { User } from 'src/generated/prisma/client.js';
 import { MailerService } from '@nestjs-modules/mailer';
+
+interface VerificationTokenPayload {
+  sub: number;
+  email: string;
+  iat?: number;
+  exp?: number;
+}
 
 @Injectable()
 export class AuthService {
@@ -38,10 +45,41 @@ export class AuthService {
         await this.mailer.sendMail({
             to: email,
             subject: 'Confirmation d\'adresse e-mail',
-            text: `Voici le lien pour vérifier votre adresse e-mail : http://localhost:4000/verify?access_token=${verificationToken}`,
+            text: `Voici le lien pour vérifier votre adresse e-mail : http://localhost:3000/signup/verify?verification_token=${verificationToken}`,
         })
 
         return ({message: 'Merci de vérifier votre adresse e-mail.'});
+    }
+
+    async verifyEmail(token : string): Promise<{message:string}>{
+            const decoded = this.JWTService.verify<VerificationTokenPayload>(token); 
+            const user = await this.userService.findUser({id : +decoded.sub})
+
+            if(!user){
+                throw new UnauthorizedException('Invalid token');
+            }
+
+            if(user.isEmailVerified){
+                throw new UnauthorizedException('Email already verified');
+            }
+
+            if(!user.emailVerifExpires){
+                throw new PreconditionFailedException('Missing data in token.')
+            }
+
+            if(
+                user.emailVerifExpires &&
+                user.emailVerifExpires < new Date()
+            ){
+                await this.userService.deleteUser({id: +decoded.sub});
+                throw new UnauthorizedException(
+                    'The verification link has expired. Please sign up again.',
+                );
+            }
+
+            await this.userService.updateUser({data:{isEmailVerified:true}, where:{id:+decoded.sub}});
+
+            return ({message: 'Le compte a bien été vérifié.'})
     }
 
     async signIn(email: string, incomingPassword: string, response: Response): Promise<void>{
@@ -49,6 +87,10 @@ export class AuthService {
 
         if(!user){
             throw new NotFoundException('Aucun utilisateur avec cette adresse e-mail n\'a été trouvé.');
+        }
+
+        if(!user.isEmailVerified){
+            throw new UnauthorizedException('Merci de bien vouloir vérifier votre compte pour pouvoir accéder à l\'application.')
         }
 
         const match = await bcrypt.compare(incomingPassword, user.password);
