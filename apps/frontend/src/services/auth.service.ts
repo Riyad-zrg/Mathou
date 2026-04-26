@@ -23,6 +23,7 @@ export async function fetchAccessToken(data:any){
 }
 
 export async function signUp(data: any){
+    let isError = false;
     try{
         const response = await fetch(`http://localhost:4000/auth/signup`,{
             method: "POST",
@@ -34,11 +35,13 @@ export async function signUp(data: any){
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
         }
-    
         }catch(error: any){
+            isError=true
             console.error(error.message);
         } finally {
-            redirect(`/signup/check-email?email=${data.email}`);
+            if(!isError){
+                redirect(`/signup/check-email?email=${data.email}`);
+            }
     }
 }
 
