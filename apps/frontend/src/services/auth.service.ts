@@ -32,12 +32,14 @@ export async function signUp(data: any){
             },
             body: JSON.stringify({email:data.email, firstname: data.firstname, lastname: data.lastname})
         })
+
         if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
+            const result = await response.json()
+            throw new Error(result.message);
         }
         }catch(error: any){
-            isError=true
-            console.error(error.message);
+            isError=true;
+            return error.message
         } finally {
             if(!isError){
                 redirect(`/signup/check-email?email=${data.email}`);

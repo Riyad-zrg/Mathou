@@ -7,6 +7,7 @@ import { Input } from "@/src/components/ui/input"
 import { Button } from "@/src/components/ui/button"
 import { signUp } from "@/src/services/auth.service"
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/src/components/ui/breadcrumb"
+import { useState } from "react"
 
 const formSchema = z.object({
     email: z.email('Le format de l\'adresse e-mail est invalide.'),
@@ -15,6 +16,7 @@ const formSchema = z.object({
 })
 
 export default function LoginForm(){
+    const [error, setError]=useState(null);
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -25,7 +27,7 @@ export default function LoginForm(){
     })
 
     async function onSubmit(data: z.infer<typeof formSchema>){
-        signUp(data);
+        setError(await signUp(data));
     }
 
     return(
@@ -41,6 +43,9 @@ export default function LoginForm(){
                 </BreadcrumbItem>
             </BreadcrumbList>
         </Breadcrumb>
+
+        {error && <p>{error}</p>}
+
 
         <section className="text-center text-2xl font-semibold">
             Créer un compte
