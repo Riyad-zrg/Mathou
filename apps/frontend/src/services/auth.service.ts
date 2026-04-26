@@ -42,3 +42,8 @@ export async function signUp(data: any){
             redirect(`/signup/check-email?email=${data.email}`);
     }
 }
+
+export async function verify_email(){
+    try{
+    }
+}
