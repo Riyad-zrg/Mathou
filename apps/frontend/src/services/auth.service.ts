@@ -26,7 +26,6 @@ export async function signUp(data: any){
     try{
         const response = await fetch(`http://localhost:4000/auth/signup`,{
             method: "POST",
-            credentials: 'include',
             headers: {
                 "Content-Type": "application/json",
             },
@@ -43,7 +42,22 @@ export async function signUp(data: any){
     }
 }
 
-export async function verify_email(){
+export async function verifyEmail(token:string|null){
     try{
+        const response = await fetch(`http://localhost:4000/auth/verify-email`,{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({token: token})
+        })
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+    
+        }catch(error: any){
+            console.error(error.message);
+        } finally {
+            redirect(`/login`);
     }
 }
