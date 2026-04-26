@@ -8,6 +8,8 @@ import { Button } from "@/src/components/ui/button"
 import { signUp } from "@/src/services/auth.service"
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/src/components/ui/breadcrumb"
 import { useState } from "react"
+import { Alert, AlertDescription } from "@/src/components/ui/alert"
+import { AlertCircleIcon } from "lucide-react"
 
 const formSchema = z.object({
     email: z.email('Le format de l\'adresse e-mail est invalide.'),
@@ -44,8 +46,16 @@ export default function LoginForm(){
             </BreadcrumbList>
         </Breadcrumb>
 
-        {error && <p>{error}</p>}
-
+        {error && 
+        <div className="pt-5 pb-5 errorMessage">
+            <Alert variant="destructive" className="w-full">
+                <AlertCircleIcon />
+                <AlertDescription>
+                    {error}
+                </AlertDescription>
+            </Alert>
+        </div>
+        }
 
         <section className="text-center text-2xl font-semibold">
             Créer un compte
