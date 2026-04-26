@@ -4,6 +4,7 @@ import { SignInDto } from './dto/sign-in.dto.js';
 import { Public } from '../common/decorators/public.decorator.js';
 import type { Response as ExpressResponse} from 'express';
 import { SignUpDto } from './dto/sign-up.dto.js';
+import { VerifyEmailDto } from './dto/verify-email.dto..js';
 
 @Controller('auth')
 export class AuthController {
@@ -23,8 +24,15 @@ export class AuthController {
     @Post('signup')
     signUp(
         @Body() signUpDto: SignUpDto
-    ){
+    ){  
         return this.authService.signUp(signUpDto.email, signUpDto.firstname, signUpDto.lastname);
+    }
+
+    @Public()
+    @Post('verify-email')
+    verifyEmail(@Body() verifyEmailDto: VerifyEmailDto)
+    {   
+        return this.authService.verifyEmail(verifyEmailDto.token)
     }
 
     @Get('profile')
