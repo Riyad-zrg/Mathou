@@ -25,7 +25,7 @@ export class AuthService {
         const existingUser = await this.userService.findUser({email});
 
         if(existingUser){
-            throw new BadRequestException('This e-mail is already used by another account.')
+            throw new BadRequestException('Cette adresse e-mail est déjà utilisé par un autre compte.')
         }
 
         const expiresDate = new Date();
