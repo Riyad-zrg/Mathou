@@ -71,3 +71,28 @@ export async function verifyEmail(token:string|null, email:string){
             }
     }
 }
+
+export async function choosePassword(userEmail:string|null, data:any){
+    let isError=false;
+    try{
+        const response = await fetch(`http://localhost:4000/auth/choose-password`,{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({email: userEmail, password: data.password, confirmPassword: data.confirmPassword})
+        })
+        if (!response.ok) {
+            const result = await response.json()
+            throw new Error(result.message);
+        }
+    
+        }catch(error: any){
+            isError=true;
+            return error.message
+        } finally {
+            if(!isError){
+                redirect(`/login`);
+            }
+    }
+}

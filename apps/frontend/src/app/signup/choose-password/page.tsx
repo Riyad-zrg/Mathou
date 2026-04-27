@@ -4,9 +4,10 @@ import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbS
 import { Button } from "@/src/components/ui/button";
 import { FieldGroup, Field, FieldLabel, FieldError } from "@/src/components/ui/field";
 import { Input } from "@/src/components/ui/input";
-import { signUp } from "@/src/services/auth.service";
+import { choosePassword} from "@/src/services/auth.service";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertCircleIcon } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import z from "zod";
@@ -72,7 +73,11 @@ export default function ChoosePassword(){
         },
     })
 
+    const searchParams = useSearchParams();
+    const userEmail = searchParams.get("email");
+
     async function onSubmit(data: z.infer<typeof formSchema>){
+        setError(await choosePassword(userEmail, data));
     }
 
     return(
@@ -119,6 +124,7 @@ export default function ChoosePassword(){
                         <Input
                             {...field}
                             id="password"
+                            type="password"
                             aria-invalid={fieldState.invalid}
                             placeholder=""
                             required
@@ -140,6 +146,7 @@ export default function ChoosePassword(){
                         <Input
                             {...field}
                             id="confirmPassword"
+                            type="password"
                             aria-invalid={fieldState.invalid}
                             placeholder=""
                             required
