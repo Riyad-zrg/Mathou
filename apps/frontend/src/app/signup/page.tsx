@@ -61,7 +61,7 @@ export default function LoginForm(){
             Créer un compte
         </section>
 
-        <form id="login-form" onSubmit={form.handleSubmit(onSubmit)}>
+        <form id="signup-form" onSubmit={form.handleSubmit(onSubmit)}>
             <FieldGroup className="pb-5">
                 <Controller
                     name="email"
@@ -127,7 +127,7 @@ export default function LoginForm(){
             </FieldGroup>
         </form>
 
-        <Button type="submit" form="login-form">
+        <Button type="submit" form="signup-form">
             Suivant
         </Button>
 
