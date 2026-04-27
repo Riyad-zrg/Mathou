@@ -48,6 +48,7 @@ export async function signUp(data: any){
 }
 
 export async function verifyEmail(token:string|null){
+    let isError=false;
     try{
         const response = await fetch(`http://localhost:4000/auth/verify-email`,{
             method: "POST",
@@ -57,12 +58,16 @@ export async function verifyEmail(token:string|null){
             body: JSON.stringify({token: token})
         })
         if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
+            const result = await response.json()
+            throw new Error(result.message);
         }
     
         }catch(error: any){
-            console.error(error.message);
+            isError=true;
+            return error.message
         } finally {
-            redirect(`/login`);
+            if(!isError){
+                redirect(`/login`);
+            }
     }
 }
