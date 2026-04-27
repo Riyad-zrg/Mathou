@@ -5,6 +5,9 @@ import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
 import { User } from 'src/generated/prisma/client.js';
 import { MailerService } from '@nestjs-modules/mailer';
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_KEY);
 
 interface VerificationTokenPayload {
   sub: number;
@@ -42,7 +45,8 @@ export class AuthService {
 
         const verificationToken = this.generateVerificationToken(temporaryUser);
 
-        await this.mailer.sendMail({
+        await resend.emails.send({
+            from: 'Socatoa <noreply@contact.socatoa.eu>',
             to: email,
             subject: 'Confirmation d\'adresse e-mail',
             text: `Voici le lien pour vérifier votre adresse e-mail : http://localhost:3000/signup/verify?verification_token=${verificationToken}`,
