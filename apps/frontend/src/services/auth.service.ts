@@ -47,7 +47,7 @@ export async function signUp(data: any){
     }
 }
 
-export async function verifyEmail(token:string|null){
+export async function verifyEmail(token:string|null, email:string){
     let isError=false;
     try{
         const response = await fetch(`http://localhost:4000/auth/verify-email`,{
@@ -67,7 +67,7 @@ export async function verifyEmail(token:string|null){
             return error.message
         } finally {
             if(!isError){
-                redirect(`/login`);
+                redirect(`/signup/choose-password?email=${email}`);
             }
     }
 }

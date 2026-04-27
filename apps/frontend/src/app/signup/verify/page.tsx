@@ -2,6 +2,7 @@
 import { Alert, AlertDescription } from '@/src/components/ui/alert';
 import { Button } from '@/src/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/src/components/ui/card';
+import { getJWTpayload } from '@/src/lib/utils';
 import { verifyEmail } from '@/src/services/auth.service';
 import { AlertCircleIcon } from 'lucide-react';
 import { useSearchParams } from 'next/navigation'
@@ -14,9 +15,15 @@ export default function verifyEmailPage(){
     const verification_token = searchParams.get("verification_token");
 
     useEffect(()=>{
+
         const verify = async () =>{
-            const result = await verifyEmail(verification_token);
-            setError(result);
+            if(verification_token){
+                const jwtPayload = await getJWTpayload(verification_token);
+                const result = await verifyEmail(verification_token, jwtPayload.email);
+                setError(result);
+            }else{
+                throw Error('Token invalide');
+            }
         }
         verify();
     },[])
