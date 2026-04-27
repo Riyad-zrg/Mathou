@@ -101,6 +101,8 @@ export class AuthService {
             throw new UnauthorizedException('Vous devez vérifier votre compte avant de pouvoir choisir un mot de passe.');
         }
 
+        password = this.userService.hashPassword(password);
+
         await this.userService.updateUser({data: {password:password}, where: {email:email}})
 
         return({message:"Le mot de passe à bien été enregistré."})
