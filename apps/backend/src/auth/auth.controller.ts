@@ -5,6 +5,7 @@ import { Public } from '../common/decorators/public.decorator.js';
 import type { Response as ExpressResponse} from 'express';
 import { SignUpDto } from './dto/sign-up.dto.js';
 import { VerifyEmailDto } from './dto/verify-email.dto..js';
+import { ChoosePasswordDto } from './dto/choose-password.dto.js';
 
 @Controller('auth')
 export class AuthController {
@@ -33,6 +34,13 @@ export class AuthController {
     verifyEmail(@Body() verifyEmailDto: VerifyEmailDto)
     {   
         return this.authService.verifyEmail(verifyEmailDto.token)
+    }
+
+    @Public()
+    @Post('choose-password')
+    choosePassword(@Body() choosePasswordDto:ChoosePasswordDto)
+    {
+        return this.authService.choosePassword(choosePasswordDto.email, choosePasswordDto.password, choosePasswordDto.confirmPassword);
     }
 
     @Get('profile')

@@ -82,6 +82,26 @@ export class AuthService {
             return ({message: 'Le compte a bien été vérifié.'})
     }
 
+    async choosePassword(email:string, password:string, confirmPassword:string):Promise<{message:string}>{
+        if(password!==confirmPassword){
+            throw new BadRequestException("Les mots de passe ne correspondent pas.")
+        }
+
+        const user = await this.userService.findUser({email:email});
+
+        if(!user){
+            throw new UnauthorizedException('L\'adresse e-mail fourni est incorrect.');
+        }
+
+        if(!user.isEmailVerified){
+            throw new UnauthorizedException('Vous devez vérifier votre compte avant de pouvoir choisir un mot de passe.');
+        }
+
+        await this.userService.updateUser({data: {password:password}, where: {email:email}})
+
+        return({message:"Le mot de passe à bien été enregistré."})
+    }
+
     async signIn(email: string, incomingPassword: string, response: Response): Promise<void>{
         const user = await this.userService.findUser({email: email});
 
