@@ -110,7 +110,7 @@ export default function ChoosePassword(){
         }
 
         <section className="text-center text-2xl font-semibold">
-            Créer un compte
+            Choisir un mot de passe
         </section>
 
         <form id="choose-password-form" onSubmit={form.handleSubmit(onSubmit)}>
