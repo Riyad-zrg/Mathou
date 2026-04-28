@@ -6,7 +6,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth.guard.js';
 import { MailerModule } from '@nestjs-modules/mailer';
-import { PasswordsModule } from 'src/passwords/passwords.module.js';
+import { PasswordsModule } from '../passwords/passwords.module.js';
 
 @Module({
   imports:[UserModule, 
