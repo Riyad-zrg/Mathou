@@ -8,7 +8,7 @@ import { AuthGuard } from './auth.guard.js';
 import { MailerModule } from '@nestjs-modules/mailer';
 
 @Module({
-  imports:[UserModule, JwtModule.register({ global: true, secret: process.env.JWT_SECRET, signOptions: {expiresIn: '60s'}}), MailerModule],
+  imports:[UserModule, JwtModule.register({ global: true, secret: process.env.JWT_SECRET, signOptions: {expiresIn: '60s'}})],
   controllers: [AuthController],
   providers: [AuthService, {provide: APP_GUARD, useClass: AuthGuard}],
 })
