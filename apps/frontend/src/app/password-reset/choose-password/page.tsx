@@ -4,7 +4,7 @@ import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbS
 import { Button } from "@/src/components/ui/button";
 import { FieldGroup, Field, FieldLabel, FieldError } from "@/src/components/ui/field";
 import { Input } from "@/src/components/ui/input";
-import { choosePassword} from "@/src/services/auth.service";
+import { resetChoosePassword } from "@/src/services/password-reset.service";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertCircleIcon } from "lucide-react";
 import { useSearchParams } from "next/navigation";
@@ -75,9 +75,10 @@ export default function ChoosePasswordPage(){
 
     const searchParams = useSearchParams();
     const resetToken = searchParams.get("reset_token");
+    const resetId = searchParams.get("reset_id");
 
     async function onSubmit(data: z.infer<typeof formSchema>){
-        setError(await choosePassword(resetToken, data));
+        setError(await resetChoosePassword(resetToken, resetId,data));
     }
 
     return(
