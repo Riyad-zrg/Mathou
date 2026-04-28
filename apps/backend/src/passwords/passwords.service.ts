@@ -6,6 +6,7 @@ import { createCipheriv, randomBytes, scrypt } from 'node:crypto';
 import { promisify } from 'node:util';
 import crypto from 'crypto';
 import { Resend } from 'resend';
+import bcrypt from "bcrypt";
 
 const resend = new Resend(process.env.RESEND_KEY);
 
@@ -23,32 +24,18 @@ export class PasswordsService {
             throw new NotFoundException('Aucun compte avec cette adresse e-mail n\'a été trouvé');
         }
 
-        const iv = randomBytes(16);
+        const token = randomBytes(16).toString('hex');
 
-        const password = process.env.RESET_TOKEN_PASSWORD;
+        const hash = this.hashToken(token);
 
-        if(!password){
-            throw new NotFoundException('Erreur environnement serveur.')
-        }
-
-        const key = (await promisify(scrypt)(password, 'salt', 32)) as Buffer;
-
-        const cipher = createCipheriv('aes-256-ctr', key, iv);
-
-        const token = randomBytes(16);
-        const encryptedToken = Buffer.concat([
-            cipher.update(token),
-            cipher.final(),
-        ]);
-        
         const expiresDate = new Date();
         expiresDate.setMinutes(expiresDate.getMinutes() + 15);
 
         await this.upsert({
             where: {userId:user.id},
-            update:{token: encryptedToken.toString(),expiresDate:expiresDate},
+            update:{token: hash,expiresDate:expiresDate},
             create:{
-                token: encryptedToken.toString(), 
+                token: hash, 
                 expiresDate:expiresDate, 
                 user:{connect : {id: user.id}}
             }
@@ -87,4 +74,11 @@ export class PasswordsService {
                 create,
             });
         };
+
+    public hashToken(token: string): string{
+            const saltRounds = 10;
+            const salt = bcrypt.genSaltSync(saltRounds);
+            const hash = bcrypt.hashSync(token, salt);
+            return hash;
+        }
 }
