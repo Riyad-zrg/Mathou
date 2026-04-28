@@ -22,13 +22,17 @@ DATABASE_URL="postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@db:5432/{POSTGRES
 
 Copy the ``/apps/backend/.env.example`` in a ``/apps/backend/.env`` file and modify the variables.
 
-The database URL needs to be modified based on the values you have referenced in ``/apps/.env``
+- The database URL needs to be modified based on the values you have referenced in ``/apps/.env``
 
 Example :
 
 ```
 DATABASE_URL="postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@db:5432/{POSTGRES_DB}"
 ```
+
+- Add a JWT secret to sign tokens.
+
+- To send emails you need to specify a Resend API key.
 
 ## Initialize Prisma
 
