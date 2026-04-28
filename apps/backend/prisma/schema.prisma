@@ -25,6 +25,7 @@ model PasswordResetManagement {
   id Int @id @default(autoincrement())
   token String @unique
   expiresDate DateTime
+  hasBeenUsed Boolean @default(false)
   user User @relation(fields: [userId], references: [id])
   userId Int @unique
 }
