@@ -7,7 +7,10 @@ const PUBLIC_ROUTES = [
   "/signup/verify", 
   '/signup/check-email', 
   '/signup/choose-password',
-  '/password-reset/email'
+  '/password-reset/specify-email',
+  '/password-reset/check-email',
+  '/password-reset/choose-password',
+
 ];
 
 export function proxy(request: NextRequest) {
