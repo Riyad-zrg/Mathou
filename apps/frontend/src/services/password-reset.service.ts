@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 export async function passwordResetCheckEmail(data: any){
     let isError = false;
     try{
-        const response = await fetch(`http://localhost:4000/auth/password-reset/verify-email`,{
+        const response = await fetch(`http://localhost:4000/password-reset/verify-email`,{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -20,7 +20,6 @@ export async function passwordResetCheckEmail(data: any){
             return error.message
         } finally {
             if(!isError){
-                redirect(`/signup/check-email?email=${data.email}`);
             }
     }
 }
