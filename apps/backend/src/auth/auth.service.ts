@@ -5,6 +5,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
 import { User } from 'src/generated/prisma/client.js';
 import { Resend } from 'resend';
+import { PasswordsService } from 'src/passwords/passwords.service.js';
 
 const resend = new Resend(process.env.RESEND_KEY);
 
@@ -20,6 +21,7 @@ export class AuthService {
     constructor(
         private userService : UserService,
         private JWTService : JwtService,
+        private passwordsService : PasswordsService
     ){}
 
     async signUp(email:string, firstname: string, lastname:string): Promise<{ message: string }>{
@@ -99,7 +101,7 @@ export class AuthService {
             throw new UnauthorizedException('Vous devez vérifier votre compte avant de pouvoir choisir un mot de passe.');
         }
 
-        password = this.userService.hashPassword(password);
+        password = this.passwordsService.hashPassword(password);
 
         await this.userService.updateUser({data: {password:password}, where: {email:email}})
 
