@@ -29,9 +29,9 @@ export class PasswordsService {
         const expiresDate = new Date();
         expiresDate.setMinutes(expiresDate.getMinutes() + 15);
 
-        await this.upsert({
+        const resetObj = await this.upsert({
             where: {userId:user.id},
-            update:{token: hash,expiresDate:expiresDate},
+            update:{token: hash,expiresDate:expiresDate, hasBeenUsed:false},
             create:{
                 token: hash, 
                 expiresDate:expiresDate, 
@@ -43,30 +43,42 @@ export class PasswordsService {
             from: 'Socatoa <noreply@contact.socatoa.eu>',
             to: email,
             subject: 'Réinitialisation de mot de passe',
-            text: `Voici le lien pour réinitialiser votre mot de passe : http://localhost:3000/password-reset/choose-password?reset_token=${resetToken}`,
+            text: `Voici le lien pour réinitialiser votre mot de passe : http://localhost:3000/password-reset/choose-password?reset_token=${resetToken}&reset_id=${resetObj.id}`,
         })
 
         return {message: 'Le courriel de réinitialisation de mot de passe a été envoyé'}
     }
     
-    async udpatePassword(token : string, password : string, confirmPassword:string){
+    async udpatePassword(token : string, resetId : string, password : string, confirmPassword:string){
 
         if(password!==confirmPassword){
             throw new BadRequestException("Les mots de passe ne correspondent pas.")
         }
 
-        const tokenObj = await this.findOne({token:token});
+        const passwordResetObj = await this.findOne({id:+resetId});
 
-        if(!tokenObj){
+        if(!passwordResetObj){
             throw new UnauthorizedException('Le lien est invalide.');
         }
 
-        if(tokenObj.expiresDate < new Date())
+        const match = await bcrypt.compare(token, passwordResetObj.token);
+
+        if(!match){
+            throw new UnauthorizedException('Les informations du lien sont incorrects.');
+        }
+
+        if(passwordResetObj.hasBeenUsed){
+            throw new UnauthorizedException('Le lien n\'est plus valide.');
+        }
+
+        if(passwordResetObj.expiresDate < new Date())
         {
             throw new UnauthorizedException('Le lien a expiré.');
         }
 
-        const user = await this.userService.findUser({id:tokenObj?.userId})
+        await this.update({data:{hasBeenUsed : true},where:{id: passwordResetObj.id}})
+
+        const user = await this.userService.findUser({id:passwordResetObj?.userId})
 
         if(!user){
             throw new NotFoundException('Aucun utilisateur avec cette adresse e-mail n\'a été trouvé.');
@@ -98,6 +110,15 @@ export class PasswordsService {
                 create,
             });
         };
+    
+    async update(params: {data: Prisma.PasswordResetManagementUpdateInput, where: Prisma.PasswordResetManagementWhereUniqueInput})
+    {   
+        const {data, where} = params;
+        return this.prisma.passwordResetManagement.update({
+            data,
+            where,
+        })
+    }
 
     public hashToken(token: string): string{
             const saltRounds = 10;
