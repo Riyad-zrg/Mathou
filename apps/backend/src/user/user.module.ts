@@ -5,7 +5,7 @@ import { UserController } from './user.controller.js';
 import { PasswordsModule } from "../passwords/passwords.module.js";
 
 @Module({
-    imports:[PrismaModule, PasswordsModule],
+    imports:[PrismaModule],
     providers:[UserService],
     exports:[UserService],
     controllers: [UserController],
