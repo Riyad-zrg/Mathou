@@ -85,7 +85,7 @@ export default function LoginForm(){
             </Button>
 
             <section className="text-blue-500 text-center pt-5 text-sm">
-                <a href="example.com">Créer un compte</a>
+                <a href="/signup">Créer un compte</a>
             </section>
         </div>
     )

@@ -59,4 +59,11 @@ export class UserService{
             where,
         });
     }
+
+    public hashPassword(plainTextPassword: string): string{
+        const saltRounds = 10;
+        const salt = bcrypt.genSaltSync(saltRounds);
+        const hash = bcrypt.hashSync(plainTextPassword, salt);
+        return hash;
+    }
 }
