@@ -35,7 +35,7 @@ export class PasswordsService {
 
         const cipher = createCipheriv('aes-256-ctr', key, iv);
 
-        const token = randomBytes(16).toString('hex');
+        const token = randomBytes(16);
         const encryptedToken = Buffer.concat([
             cipher.update(token),
             cipher.final(),
@@ -44,13 +44,15 @@ export class PasswordsService {
         const expiresDate = new Date();
         expiresDate.setMinutes(expiresDate.getMinutes() + 15);
 
-        await this.create(
-            {
+        await this.upsert({
+            where: {userId:user.id},
+            update:{token: encryptedToken.toString(),expiresDate:expiresDate},
+            create:{
                 token: encryptedToken.toString(), 
                 expiresDate:expiresDate, 
                 user:{connect : {id: user.id}}
             }
-        )
+        });
 
         await resend.emails.send({
             from: 'Socatoa <noreply@contact.socatoa.eu>',
@@ -66,34 +68,23 @@ export class PasswordsService {
         console.log(crypto.randomBytes(10))
     }
 
-    async findOne(params:{
-            skip?: number;
-            take?: number;
-            cursor?: Prisma.PasswordResetManagementWhereUniqueInput
-            where?: Prisma.PasswordResetManagementWhereInput
-            orderBy?: Prisma.PasswordResetManagementOrderByWithRelationInput;
-        }): Promise<PasswordResetManagement[]> {
-            const { skip, take, cursor, where, orderBy } = params;
-            return this.prisma.passwordResetManagement.findMany({
-            skip,
-            take,
-            cursor,
-            where,
-            orderBy,
-            });
+    async findOne(passwordResetManagementWhereUniqueInput: Prisma.PasswordResetManagementWhereUniqueInput): Promise<PasswordResetManagement | null>{
+            return this.prisma.passwordResetManagement.findUnique({
+                where: passwordResetManagementWhereUniqueInput,
+            })
         }
 
-    async create(data: Prisma.PasswordResetManagementCreateInput): Promise<PasswordResetManagement> {
-            return this.prisma.passwordResetManagement.create({
-                data,
+    async upsert(params:{
+        where:Prisma.PasswordResetManagementWhereUniqueInput, 
+        update: Prisma.PasswordResetManagementUpdateInput, 
+        create: Prisma.PasswordResetManagementCreateInput}): 
+        Promise<PasswordResetManagement> 
+        {   
+            const {where, update, create} = params;
+            return this.prisma.passwordResetManagement.upsert({
+                where,
+                update,
+                create,
             });
         };
-    
-    async update(params : {data: Prisma.PasswordResetManagementUpdateInput, where: Prisma.PasswordResetManagementWhereUniqueInput}): Promise<PasswordResetManagement> {
-        const {where, data} = params
-        return this.prisma.passwordResetManagement.update({
-            data,
-            where,
-        });
-    }
 }
