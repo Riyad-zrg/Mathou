@@ -44,8 +44,8 @@ export class PasswordsService {
         await resend.emails.send({
             from: 'Socatoa <noreply@contact.socatoa.eu>',
             to: email,
-            subject: 'Confirmation d\'adresse e-mail',
-            text: `Voici le lien pour vérifier votre adresse e-mail : http://localhost:3000/signup/verify?verification_token=${token}`,
+            subject: 'Réinitialisation de mot de passe',
+            text: `Voici le lien pour réinitialiser votre mot de passe : http://localhost:3000/signup/verify?verification_token=${token}`,
         })
 
         return {message: 'Le courriel de réinitialisation de mot de passe a été envoyé'}
