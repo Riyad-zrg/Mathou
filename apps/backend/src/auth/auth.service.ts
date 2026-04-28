@@ -4,7 +4,6 @@ import bcrypt from "bcrypt";
 import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
 import { User } from 'src/generated/prisma/client.js';
-import { MailerService } from '@nestjs-modules/mailer';
 import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_KEY);
@@ -21,7 +20,6 @@ export class AuthService {
     constructor(
         private userService : UserService,
         private JWTService : JwtService,
-        private readonly mailer : MailerService,
     ){}
 
     async signUp(email:string, firstname: string, lastname:string): Promise<{ message: string }>{
