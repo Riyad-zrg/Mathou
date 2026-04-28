@@ -1,12 +1,14 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from "../prisma/prisma.service.js";
-import { PasswordResetManagement,Prisma } from "src/generated/prisma/browser.js";
-import bcrypt from "bcrypt";
-import { UserService } from 'src/user/user.service.js';
+import { PasswordResetManagement,Prisma } from "../generated/prisma/browser.js";
+import { UserService } from '../user/user.service.js';
 
 @Injectable()
 export class PasswordsService {
-    constructor(private prisma: PrismaService, private userService:UserService){}
+    constructor(
+        private userService:UserService,
+        private prisma: PrismaService, 
+    ){}
 
     async passwordResetCheckEmail(email:string){
         const user = await this.userService.findUser({email:email});
@@ -55,12 +57,5 @@ export class PasswordsService {
             data,
             where,
         });
-    }
-
-    public hashPassword(plainTextPassword: string): string{
-        const saltRounds = 10;
-        const salt = bcrypt.genSaltSync(saltRounds);
-        const hash = bcrypt.hashSync(plainTextPassword, salt);
-        return hash;
     }
 }
