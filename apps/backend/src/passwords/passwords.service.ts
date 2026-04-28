@@ -1,10 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { PrismaService } from "../prisma/prisma.service.js";
 import { PasswordResetManagement,Prisma } from "../generated/prisma/browser.js";
 import { UserService } from '../user/user.service.js';
-import { createCipheriv, randomBytes, scrypt } from 'node:crypto';
-import { promisify } from 'node:util';
-import crypto from 'crypto';
+import { randomBytes} from 'node:crypto';
 import { Resend } from 'resend';
 import bcrypt from "bcrypt";
 
@@ -24,9 +22,9 @@ export class PasswordsService {
             throw new NotFoundException('Aucun compte avec cette adresse e-mail n\'a été trouvé');
         }
 
-        const token = randomBytes(16).toString('hex');
+        const resetToken = randomBytes(16).toString('hex');
 
-        const hash = this.hashToken(token);
+        const hash = this.hashToken(resetToken);
 
         const expiresDate = new Date();
         expiresDate.setMinutes(expiresDate.getMinutes() + 15);
@@ -45,14 +43,40 @@ export class PasswordsService {
             from: 'Socatoa <noreply@contact.socatoa.eu>',
             to: email,
             subject: 'Réinitialisation de mot de passe',
-            text: `Voici le lien pour réinitialiser votre mot de passe : http://localhost:3000/signup/verify?verification_token=${token}`,
+            text: `Voici le lien pour réinitialiser votre mot de passe : http://localhost:3000/password-reset/choose-password?reset_token=${resetToken}`,
         })
 
         return {message: 'Le courriel de réinitialisation de mot de passe a été envoyé'}
     }
     
-    async verifyPasswordReset(token : string){
-        console.log(crypto.randomBytes(10))
+    async udpatePassword(token : string, password : string, confirmPassword:string){
+
+        if(password!==confirmPassword){
+            throw new BadRequestException("Les mots de passe ne correspondent pas.")
+        }
+
+        const tokenObj = await this.findOne({token:token});
+
+        if(!tokenObj){
+            throw new UnauthorizedException('Le lien est invalide.');
+        }
+
+        if(tokenObj.expiresDate < new Date())
+        {
+            throw new UnauthorizedException('Le lien a expiré.');
+        }
+
+        const user = await this.userService.findUser({id:tokenObj?.userId})
+
+        if(!user){
+            throw new NotFoundException('Aucun utilisateur avec cette adresse e-mail n\'a été trouvé.');
+        }
+
+        password = this.userService.hashPassword(password);
+
+        await this.userService.updateUser({data: {password:password}, where: {email:user.email}})
+
+        return({message:"Le mot de passe à bien été enregistré."})
     }
 
     async findOne(passwordResetManagementWhereUniqueInput: Prisma.PasswordResetManagementWhereUniqueInput): Promise<PasswordResetManagement | null>{
