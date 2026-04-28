@@ -19,6 +19,6 @@ export class PasswordsController {
   @Post('/update/password')
   verifyResetToken(@Body() updatePasswordDto:updatePasswordDto)
   {
-      return this.passwordsService.udpatePassword(updatePasswordDto.token, updatePasswordDto.password, updatePasswordDto.confirmPassword);
+      return this.passwordsService.udpatePassword(updatePasswordDto.token, updatePasswordDto.resetId, updatePasswordDto.password, updatePasswordDto.confirmPassword);
   }
 }
