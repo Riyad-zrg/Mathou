@@ -5,11 +5,11 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Field, FieldError, FieldGroup, FieldLabel} from "@/src/components/ui/field"
 import { Input } from "@/src/components/ui/input"
 import { Button } from "@/src/components/ui/button"
-import { signUp } from "@/src/services/auth.service"
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/src/components/ui/breadcrumb"
 import { useState } from "react"
 import { Alert, AlertDescription } from "@/src/components/ui/alert"
 import { AlertCircleIcon } from "lucide-react"
+import { passwordResetCheckEmail } from "@/src/services/password-reset.service"
 
 const formSchema = z.object({
     email: z.email('Le format de l\'adresse e-mail est invalide.'),
@@ -20,12 +20,12 @@ export default function ResetPasswordSpecifyEmail(){
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            email: "",
+            email: "john.doe@gmail.fr",
         },
     })
 
     async function onSubmit(data: z.infer<typeof formSchema>){
-        setError(await signUp(data));
+        setError(await passwordResetCheckEmail(data));
     }
 
     return(
