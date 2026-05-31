@@ -68,5 +68,9 @@ export async function resetChoosePassword(token:string|null, resetId:string|null
         }catch(error: any){
             isError=true;
             return error.message
-        }
+        }finally {
+            if(!isError){
+                redirect(`/login`)
+            }
+    }
 }
