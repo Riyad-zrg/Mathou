@@ -7,9 +7,13 @@ import { AuthModule } from './auth/auth.module.js';
 import { LoggerMiddleware } from './middleware/logger.middleware.js';
 import { UserModule } from './user/user.module.js';
 import { MailerModule } from '@nestjs-modules/mailer';
+import { PasswordsModule } from './passwords/passwords.module.js';
 
 @Module({
-  imports: [ConfigModule.forRoot({envFilePath: '.env', isGlobal: true}), PrismaModule, AuthModule, UserModule,
+  imports: [ConfigModule.forRoot({envFilePath: '.env', isGlobal: true}), 
+    PrismaModule, 
+    AuthModule, 
+    UserModule,
     MailerModule.forRoot({
       transport: {
         host: process.env.MAILER_HOST,
@@ -20,7 +24,8 @@ import { MailerModule } from '@nestjs-modules/mailer';
           pass: process.env.MAILER_PASSWORD,
         },
       },
-    })
+    }),
+    PasswordsModule
   ],
   controllers: [AppController],
   providers: [AppService],

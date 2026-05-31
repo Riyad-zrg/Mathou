@@ -77,7 +77,7 @@ export default function LoginForm(){
             </form>
             
             <section className="text-blue-500 text-center p-2 text-sm">
-                <a href="example.com">Mot de passe oublié ?</a>
+                <a href="/password-reset/specify-email">Mot de passe oublié ?</a>
             </section>
 
             <Button type="submit" form="login-form">

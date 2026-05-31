@@ -72,7 +72,7 @@ export async function verifyEmail(token:string|null, email:string){
     }
 }
 
-export async function choosePassword(userEmail:string|null, data:any){
+export async function choosePassword(email:string|null, data:any){
     let isError=false;
     try{
         const response = await fetch(`http://localhost:4000/auth/choose-password`,{
@@ -80,7 +80,7 @@ export async function choosePassword(userEmail:string|null, data:any){
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({email: userEmail, password: data.password, confirmPassword: data.confirmPassword})
+            body: JSON.stringify({email:email, password: data.password, confirmPassword: data.confirmPassword})
         })
         if (!response.ok) {
             const result = await response.json()

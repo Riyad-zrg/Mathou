@@ -3,7 +3,7 @@ import { UserService } from '../user/user.service.js';
 import bcrypt from "bcrypt";
 import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
-import { User } from 'src/generated/prisma/client.js';
+import { User } from '../generated/prisma/client.js';
 import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_KEY);

@@ -18,7 +18,7 @@ async function main(){
         where: { email: "john.doe@gmail.fr"},
         update: {},
         create: {
-            email: "john.doe@gmail.fr",
+            email: "socatoa.app@outlook.fr",
             firstname: "John",
             lastname: "Doe",
             password:hash,
