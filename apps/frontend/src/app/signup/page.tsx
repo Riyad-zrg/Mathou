@@ -25,16 +25,12 @@ import { AlertCircleIcon } from "lucide-react";
 
 const formSchema = z.object({
   email: z.email("Le format de l'adresse e-mail est invalide."),
-  firstname: z
-    .string()
-    .max(30, {
-      error: "Le prénom doit faire une taille maximum de 30 caractères.",
-    }),
-  lastname: z
-    .string()
-    .max(30, {
-      error: "Le prénom doit faire une taille maximum de 30 caractères.",
-    }),
+  firstname: z.string().max(30, {
+    error: "Le prénom doit faire une taille maximum de 30 caractères.",
+  }),
+  lastname: z.string().max(30, {
+    error: "Le prénom doit faire une taille maximum de 30 caractères.",
+  }),
 });
 
 export default function LoginForm() {
