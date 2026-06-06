@@ -2,9 +2,10 @@
 
 import { useReducer } from "react";
 import { ToastContext } from "./ToastContext";
+import { toastReducer, actionTypes } from "@/src/reducers/toastReducer";
 
 const initialState = {
-  toast: [],
+  toasts: [],
 };
 
 interface Props {
