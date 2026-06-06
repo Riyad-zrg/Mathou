@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { toast } from "sonner";
 
 export async function passwordResetCheckEmail(data: any){
     let isError = false;
@@ -45,6 +46,7 @@ export async function resetChoosePassword(token:string|null, resetId:string|null
             return error.message
         }finally {
             if(!isError){
+                toast.success("Votre mot de passe à bien été modifié.", {closeButton: true, position: "top-center"})
                 redirect(`/login`)
             }
     }

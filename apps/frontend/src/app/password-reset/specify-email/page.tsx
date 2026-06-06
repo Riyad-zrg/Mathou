@@ -20,7 +20,7 @@ export default function ResetPasswordSpecifyEmail(){
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            email: "socatoa.app@outlook.fr",
+            email: "",
         },
     })
 

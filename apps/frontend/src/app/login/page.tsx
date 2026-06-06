@@ -87,6 +87,7 @@ export default function LoginForm(){
             <section className="text-blue-500 text-center pt-5 text-sm">
                 <a href="/signup">Créer un compte</a>
             </section>
+
         </div>
     )
 }
