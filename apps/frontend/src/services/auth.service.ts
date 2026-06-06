@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { toast } from "sonner";
 
 export async function fetchAccessToken(data:any){
     try{
@@ -92,6 +93,7 @@ export async function choosePassword(email:string|null, data:any){
             return error.message
         } finally {
             if(!isError){
+                toast.success("Votre compte à bien été créé. Merci de vous connecter.", {position: "top-center",closeButton: true})
                 redirect(`/login`);
             }
     }

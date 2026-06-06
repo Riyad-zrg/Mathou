@@ -6,7 +6,6 @@ import { Field, FieldError, FieldGroup, FieldLabel} from "@/src/components/ui/fi
 import { Input } from "@/src/components/ui/input"
 import { Button } from "@/src/components/ui/button"
 import { fetchAccessToken } from "@/src/services/auth.service"
-import { toast } from "sonner"
 
 const formSchema = z.object({
     email: z.email('Le format de l\'adresse e-mail est invalide.'),
@@ -89,9 +88,6 @@ export default function LoginForm(){
                 <a href="/signup">Créer un compte</a>
             </section>
 
-            <Button onClick={()=>toast.success("Salut", {position: "top-center", duration: 5000, closeButton: true})}>
-                Test
-            </Button>
         </div>
     )
 }
