@@ -3,7 +3,8 @@ import QuestionAnswer from "./QuestionAnswer";
 import { useEffect, useState } from "react";
 
 export default function AnswersGroup({ result }: { result: number }) {
-  const [hasUserAnswered, setHasUserAnswered] = useState(false);
+  const [hasUserAnswered, setHasUserAnswered] = useState<boolean>(false);
+
   const [resultList, setResultList] = useState<number[]>([]);
 
   const handleClickOnAnswer = () => {

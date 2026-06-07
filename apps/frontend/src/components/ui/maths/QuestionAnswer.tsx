@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Card, CardContent } from "../card";
 
 interface QuestionAnswerProps {
@@ -12,6 +13,7 @@ export default function QuestionAnswer({
   handleClickOnAnswer,
   hasUserAnswered,
 }: QuestionAnswerProps) {
+  const [hasBeenChosen, setHasBeenChosen] = useState(false);
   if (hasUserAnswered && isCorrectAnswer) {
     return (
       <Card
@@ -22,8 +24,24 @@ export default function QuestionAnswer({
       </Card>
     );
   }
+  if (hasBeenChosen && !isCorrectAnswer) {
+    return (
+      <Card
+        className="w-full max-w-sm bg-red-500"
+        onClick={handleClickOnAnswer}
+      >
+        <CardContent>{value}</CardContent>
+      </Card>
+    );
+  }
   return (
-    <Card className="w-full max-w-sm" onClick={handleClickOnAnswer}>
+    <Card
+      className="w-full max-w-sm"
+      onClick={() => {
+        handleClickOnAnswer();
+        setHasBeenChosen(true);
+      }}
+    >
       <CardContent>{value}</CardContent>
     </Card>
   );
