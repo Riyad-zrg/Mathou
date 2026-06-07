@@ -17,7 +17,7 @@ export default function QuestionAnswer({
   if (hasUserAnswered && isCorrectAnswer) {
     return (
       <Card
-        className="w-full max-w-sm bg-green-300"
+        className="w-full max-w-sm bg-green-400"
         onClick={handleClickOnAnswer}
       >
         <CardContent>{value}</CardContent>
