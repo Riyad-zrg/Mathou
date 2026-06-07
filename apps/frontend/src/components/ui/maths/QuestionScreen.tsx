@@ -1,5 +1,11 @@
+import AnswersGroup from "./AnswersGroup";
 import Question from "./QuestionStatement";
 
 export default function QuestionScreen() {
-  return <Question></Question>;
+  return (
+    <div>
+      <Question />
+      <AnswersGroup />
+    </div>
+  );
 }
