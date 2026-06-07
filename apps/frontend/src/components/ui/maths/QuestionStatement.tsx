@@ -1,19 +1,15 @@
 import { useEffect, useState } from "react";
 import { Item, ItemContent, ItemTitle } from "../item";
 
-export default function Question() {
-  const [number1, setNumber1] = useState(Math.floor(Math.random() * 100));
-  const [number2, setNumber2] = useState(Math.floor(Math.random() * 100));
-  const [isMounted, setIsMounted] = useState(false);
+interface QuestionStatementProps {
+  number1: number;
+  number2: number;
+}
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted) {
-    return null;
-  }
-
+export default function QuestionStatement({
+  number1,
+  number2,
+}: QuestionStatementProps) {
   return (
     <div className="p-5">
       <Item variant="outline">
