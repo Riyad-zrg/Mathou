@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Item, ItemContent, ItemTitle } from "../item";
 
 interface QuestionStatementProps {
