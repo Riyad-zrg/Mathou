@@ -17,6 +17,12 @@ export default function QuestionScreen() {
     return null;
   }
 
+  const onNextClick = () => {
+    setHasUserAnswered(false);
+    setNumber1(Math.floor(Math.random() * 100));
+    setNumber2(Math.floor(Math.random() * 100));
+  };
+
   return (
     <div>
       <QuestionStatement number1={number1} number2={number2} />
@@ -25,7 +31,7 @@ export default function QuestionScreen() {
         setHasUserAnswered={(boolean) => setHasUserAnswered(boolean)}
         result={number1 + number2}
       />
-      {hasUserAnswered && <Button>Suivant</Button>}
+      {hasUserAnswered && <Button onClick={onNextClick}>Suivant</Button>}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardContent } from "../card";
 
 interface QuestionAnswerProps {
@@ -14,6 +14,11 @@ export default function QuestionAnswer({
   hasUserAnswered,
 }: QuestionAnswerProps) {
   const [hasBeenChosen, setHasBeenChosen] = useState(false);
+  useEffect(() => {
+    if (!hasUserAnswered) {
+      setHasBeenChosen(false);
+    }
+  }, [hasUserAnswered]);
   if (hasUserAnswered && isCorrectAnswer) {
     return (
       <Card
