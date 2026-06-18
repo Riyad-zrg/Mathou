@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import AnswersGroup from "./AnswersGroup";
 import QuestionStatement from "./QuestionStatement";
+import { Button } from "../button";
 
 export default function QuestionScreen() {
   const [number1, setNumber1] = useState(Math.floor(Math.random() * 100));
   const [number2, setNumber2] = useState(Math.floor(Math.random() * 100));
   const [isMounted, setIsMounted] = useState(false);
+  const [hasUserAnswered, setHasUserAnswered] = useState<boolean>(false);
 
   useEffect(() => {
     setIsMounted(true);
@@ -18,7 +20,12 @@ export default function QuestionScreen() {
   return (
     <div>
       <QuestionStatement number1={number1} number2={number2} />
-      <AnswersGroup result={number1 + number2} />
+      <AnswersGroup
+        hasUserAnswered={hasUserAnswered}
+        setHasUserAnswered={(boolean) => setHasUserAnswered(boolean)}
+        result={number1 + number2}
+      />
+      {hasUserAnswered && <Button>Suivant</Button>}
     </div>
   );
 }

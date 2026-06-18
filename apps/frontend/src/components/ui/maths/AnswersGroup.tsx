@@ -2,9 +2,17 @@ import { shuffle } from "@/src/lib/utils";
 import QuestionAnswer from "./QuestionAnswer";
 import { useEffect, useState } from "react";
 
-export default function AnswersGroup({ result }: { result: number }) {
-  const [hasUserAnswered, setHasUserAnswered] = useState<boolean>(false);
+interface AnswersGroup {
+  hasUserAnswered: boolean;
+  setHasUserAnswered: (boolean: boolean) => void;
+  result: number;
+}
 
+export default function AnswersGroup({
+  hasUserAnswered,
+  setHasUserAnswered,
+  result,
+}: AnswersGroup) {
   const [resultList, setResultList] = useState<number[]>([]);
 
   const handleClickOnAnswer = () => {
