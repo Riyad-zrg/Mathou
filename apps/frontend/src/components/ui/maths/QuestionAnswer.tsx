@@ -22,7 +22,7 @@ export default function QuestionAnswer({
   if (hasUserAnswered && isCorrectAnswer) {
     return (
       <Card
-        className="flex-1 h-full w-full max-w-sm bg-green-400 justify-center"
+        className="flex-1 h-full w-full bg-green-400 justify-center"
         onClick={handleClickOnAnswer}
       >
         <CardContent className="text-4xl font-normal">{value}</CardContent>
@@ -32,7 +32,7 @@ export default function QuestionAnswer({
   if (hasBeenChosen && !isCorrectAnswer) {
     return (
       <Card
-        className="flex-1 h-full w-full max-w-sm bg-red-500 justify-center"
+        className="flex-1 h-full w-full bg-red-500 justify-center"
         onClick={handleClickOnAnswer}
       >
         <CardContent className="text-4xl font-normal">{value}</CardContent>
@@ -41,7 +41,7 @@ export default function QuestionAnswer({
   }
   return (
     <Card
-      className="flex-1 h-full w-full max-w-sm justify-center"
+      className="flex-1 h-full w-full justify-center"
       onClick={() => {
         handleClickOnAnswer();
         setHasBeenChosen(true);

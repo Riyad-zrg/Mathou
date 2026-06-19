@@ -35,17 +35,19 @@ export default function QuestionScreen() {
           result={number1 + number2}
         />
       </section>
-      <section className="flex-1 flex-col text-center pt-10 pb-10">
-        {hasUserAnswered && (
+      <div className="flex-2">
+        <section className="text-center">
           <Button
             onClick={onNextClick}
             size={"xl"}
-            className="text-lg lg:text-3xl "
+            className={
+              "text-lg lg:text-3xl " + (!hasUserAnswered ? "hidden" : "")
+            }
           >
             Suivant
           </Button>
-        )}
-      </section>
+        </section>
+      </div>
     </div>
   );
 }
