@@ -43,8 +43,10 @@ export default function QuestionAnswer({
     <Card
       className="flex-1 h-full w-full justify-center"
       onClick={() => {
+        if (!hasUserAnswered) {
+          setHasBeenChosen(true);
+        }
         handleClickOnAnswer();
-        setHasBeenChosen(true);
       }}
     >
       <CardContent className="text-4xl font-normal">{value}</CardContent>
