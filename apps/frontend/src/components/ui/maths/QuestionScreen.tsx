@@ -24,18 +24,28 @@ export default function QuestionScreen() {
   };
 
   return (
-    <div className="flex-1 h-screen flex-row justify-center items-center text-center questionScreen">
-      <QuestionStatement number1={number1} number2={number2} />
-      <AnswersGroup
-        hasUserAnswered={hasUserAnswered}
-        setHasUserAnswered={(boolean) => setHasUserAnswered(boolean)}
-        result={number1 + number2}
-      />
-      {hasUserAnswered && (
-        <section className="flex-1 text-center pt-10">
-          <Button onClick={onNextClick}>Suivant</Button>
-        </section>
-      )}
+    <div className="h-screen flex flex-col justify-evenly items-center text-center questionScreen">
+      <section className="flex-1 w-full p-5 flex-col">
+        <QuestionStatement number1={number1} number2={number2} />
+      </section>
+      <section className="flex-9 w-full p-5 flex-col">
+        <AnswersGroup
+          hasUserAnswered={hasUserAnswered}
+          setHasUserAnswered={(boolean) => setHasUserAnswered(boolean)}
+          result={number1 + number2}
+        />
+      </section>
+      <section className="flex-1 flex-col text-center pt-10 pb-10">
+        {hasUserAnswered && (
+          <Button
+            onClick={onNextClick}
+            size={"xl"}
+            className="text-lg lg:text-3xl "
+          >
+            Suivant
+          </Button>
+        )}
+      </section>
     </div>
   );
 }

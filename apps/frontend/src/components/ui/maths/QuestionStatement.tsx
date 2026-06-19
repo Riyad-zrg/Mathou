@@ -10,7 +10,7 @@ export default function QuestionStatement({
   number2,
 }: QuestionStatementProps) {
   return (
-    <div className="flex-1 p-5 h-1/6 questionStatement">
+    <div className="questionStatement">
       <Item variant="outline_full_h">
         <ItemContent>
           <ItemTitle>

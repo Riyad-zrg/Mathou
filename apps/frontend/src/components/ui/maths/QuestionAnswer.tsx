@@ -22,32 +22,32 @@ export default function QuestionAnswer({
   if (hasUserAnswered && isCorrectAnswer) {
     return (
       <Card
-        className="flex-1 w-full max-w-sm bg-green-400"
+        className="flex-1 h-full w-full max-w-sm bg-green-400 justify-center"
         onClick={handleClickOnAnswer}
       >
-        <CardContent>{value}</CardContent>
+        <CardContent className="text-4xl font-normal">{value}</CardContent>
       </Card>
     );
   }
   if (hasBeenChosen && !isCorrectAnswer) {
     return (
       <Card
-        className="flex-1 w-full max-w-sm bg-red-500"
+        className="flex-1 h-full w-full max-w-sm bg-red-500 justify-center"
         onClick={handleClickOnAnswer}
       >
-        <CardContent>{value}</CardContent>
+        <CardContent className="text-4xl font-normal">{value}</CardContent>
       </Card>
     );
   }
   return (
     <Card
-      className="flex-1 w-full max-w-sm"
+      className="flex-1 h-full w-full max-w-sm justify-center"
       onClick={() => {
         handleClickOnAnswer();
         setHasBeenChosen(true);
       }}
     >
-      <CardContent>{value}</CardContent>
+      <CardContent className="text-4xl font-normal">{value}</CardContent>
     </Card>
   );
 }
