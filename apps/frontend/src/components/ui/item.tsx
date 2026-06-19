@@ -38,6 +38,7 @@ const itemVariants = cva(
         default: "bg-transparent",
         outline: "border-border border-2 border-purple-600",
         muted: "bg-muted/50",
+        outline_full_h: "h-full border-border border-4 border-purple-600",
       },
       size: {
         default: "gap-4 p-4",
@@ -108,7 +109,7 @@ function ItemContent({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="item-content"
       className={cn(
-        "flex flex-1 flex-col gap-1 [&+[data-slot=item-content]]:flex-none",
+        "flex flex-1 flex-col gap-1 items-center [&+[data-slot=item-content]]:flex-none",
         className,
       )}
       {...props}
@@ -121,7 +122,7 @@ function ItemTitle({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="item-title"
       className={cn(
-        "flex w-fit items-center gap-2 text-sm leading-snug font-medium",
+        "flex w-fit items-center gap-2 text-4xl leading-snug font-medium text-center",
         className,
       )}
       {...props}

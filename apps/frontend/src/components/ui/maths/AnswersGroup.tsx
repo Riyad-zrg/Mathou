@@ -37,7 +37,7 @@ export default function AnswersGroup({
   }, [result]);
 
   return (
-    <div className="grid grid-cols-2 gap-5">
+    <div className="grid grid-cols-2 items-center gap-5 h-1/2 questionAnswer">
       {resultList.map((answerValue, id) => (
         <QuestionAnswer
           value={answerValue}
