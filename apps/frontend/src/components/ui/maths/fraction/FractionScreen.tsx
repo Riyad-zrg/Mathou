@@ -7,6 +7,9 @@ import "katex/dist/katex.min.css";
 import { InlineMath, BlockMath } from "react-katex";
 
 export default function QuestionScreen() {
+  // const listeOperateurs = ["-", "+", "x"];
+  const listeOperateurs = ["+"];
+
   const [numerateur1, setNumerateur1] = useState(
     Math.floor(Math.random() * 100),
   );
@@ -21,6 +24,9 @@ export default function QuestionScreen() {
   );
   const [isMounted, setIsMounted] = useState(false);
   const [hasUserAnswered, setHasUserAnswered] = useState<boolean>(false);
+  const [operateur, setOperateur] = useState(
+    listeOperateurs[Math.floor(listeOperateurs.length * Math.random())],
+  );
 
   useEffect(() => {
     setIsMounted(true);
@@ -41,6 +47,38 @@ export default function QuestionScreen() {
   const fraction1 = "\\frac{" + numerateur1 + "}{" + denominateur1 + "}";
   const fraction2 = "\\frac{" + numerateur2 + "}{" + denominateur2 + "}";
 
+  const getGcd = (a: number, b: number) => {
+    let num = 2,
+      res = 1;
+    while (num <= Math.min(a, b)) {
+      if (a % num === 0 && b % num === 0) {
+        res = num;
+      }
+      num++;
+    }
+    return res;
+  };
+
+  const getResult = () => {
+    let result = "";
+    switch (operateur) {
+      case "+":
+        let resNumerateur =
+          numerateur1 * denominateur2 + numerateur2 * denominateur1;
+        let resDenominateur = denominateur1 * denominateur2;
+        const gcd = getGcd(resNumerateur, resDenominateur);
+        resNumerateur = resNumerateur / gcd;
+        resDenominateur = resDenominateur / gcd;
+        result =
+          "\\frac{" +
+          resNumerateur.toString() +
+          "}{" +
+          resDenominateur.toString() +
+          "}";
+    }
+    return result;
+  };
+
   return (
     <div className="h-screen flex flex-col justify-evenly items-center text-center questionScreen">
       <Header />
@@ -48,8 +86,8 @@ export default function QuestionScreen() {
         <QuestionStatement
           operation={
             <p>
-              <InlineMath math={fraction1} /> + <InlineMath math={fraction2} />{" "}
-              = ?
+              <InlineMath math={fraction1} /> {operateur}{" "}
+              <InlineMath math={fraction2} /> = ?
             </p>
           }
         />
@@ -58,7 +96,7 @@ export default function QuestionScreen() {
         <AnswersGroup
           hasUserAnswered={hasUserAnswered}
           setHasUserAnswered={(boolean) => setHasUserAnswered(boolean)}
-          result={numerateur1 / denominateur1 + numerateur2 / denominateur2}
+          result={<InlineMath math={getResult()}></InlineMath>}
         />
       </section>
       <div className="flex-2">

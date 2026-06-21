@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 interface AnswersGroup {
   hasUserAnswered: boolean;
   setHasUserAnswered: (boolean: boolean) => void;
-  result: number;
+  result: any;
 }
 
 export default function AnswersGroup({
