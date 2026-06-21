@@ -1,14 +1,10 @@
 import { Item, ItemContent, ItemTitle } from "../item";
 
 interface QuestionStatementProps {
-  number1: number;
-  number2: number;
   operation: any;
 }
 
 export default function QuestionStatement({
-  number1,
-  number2,
   operation,
 }: QuestionStatementProps) {
   return (

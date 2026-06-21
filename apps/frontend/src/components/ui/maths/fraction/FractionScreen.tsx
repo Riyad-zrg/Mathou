@@ -7,8 +7,18 @@ import "katex/dist/katex.min.css";
 import { InlineMath, BlockMath } from "react-katex";
 
 export default function QuestionScreen() {
-  const [number1, setNumber1] = useState(Math.floor(Math.random() * 100));
-  const [number2, setNumber2] = useState(Math.floor(Math.random() * 100));
+  const [numerateur1, setNumerateur1] = useState(
+    Math.floor(Math.random() * 100),
+  );
+  const [denominateur1, setDenominateur1] = useState(
+    Math.floor(Math.random() * 100),
+  );
+  const [numerateur2, setNumerateur2] = useState(
+    Math.floor(Math.random() * 100),
+  );
+  const [denominateur2, setDenominateur2] = useState(
+    Math.floor(Math.random() * 100),
+  );
   const [isMounted, setIsMounted] = useState(false);
   const [hasUserAnswered, setHasUserAnswered] = useState<boolean>(false);
 
@@ -22,25 +32,33 @@ export default function QuestionScreen() {
 
   const onNextClick = () => {
     setHasUserAnswered(false);
-    setNumber1(Math.floor(Math.random() * 100));
-    setNumber2(Math.floor(Math.random() * 100));
+    setNumerateur1(Math.floor(Math.random() * 100));
+    setNumerateur2(Math.floor(Math.random() * 100));
+    setDenominateur1(Math.floor(Math.random() * 100));
+    setDenominateur2(Math.floor(Math.random() * 100));
   };
+
+  const fraction1 = "\\frac{" + numerateur1 + "}{" + denominateur1 + "}";
+  const fraction2 = "\\frac{" + numerateur2 + "}{" + denominateur2 + "}";
 
   return (
     <div className="h-screen flex flex-col justify-evenly items-center text-center questionScreen">
       <Header />
       <section className="flex-1 w-full p-5 flex-col">
         <QuestionStatement
-          number1={number1}
-          number2={number2}
-          operation={<InlineMath math="\frac{1}{2}" />}
+          operation={
+            <p>
+              <InlineMath math={fraction1} /> + <InlineMath math={fraction2} />{" "}
+              = ?
+            </p>
+          }
         />
       </section>
       <section className="flex-9 w-full p-5 flex-col">
         <AnswersGroup
           hasUserAnswered={hasUserAnswered}
           setHasUserAnswered={(boolean) => setHasUserAnswered(boolean)}
-          result={number1 + number2}
+          result={numerateur1 / denominateur1 + numerateur2 / denominateur2}
         />
       </section>
       <div className="flex-2">
