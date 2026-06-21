@@ -10,6 +10,8 @@ export default async function Home() {
     <div>
       <p>Bienvenue {jwtPayload.firstname}! Tu es sur la hub page !</p>
       <a href="/maths/addition">Addition</a>
+      <br />
+      <a href="/maths/fractions">Fractions</a>
     </div>
   );
 }

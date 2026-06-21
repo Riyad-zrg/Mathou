@@ -1,7 +1,7 @@
 "use client";
 
-import QuestionScreen from "@/src/components/ui/maths/QuestionScreen";
+import AdditionScreen from "@/src/components/ui/maths/addition/AdditionScreen";
 
 export default function AdditionPage() {
-  return <QuestionScreen></QuestionScreen>;
+  return <AdditionScreen></AdditionScreen>;
 }

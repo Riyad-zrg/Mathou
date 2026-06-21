@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
-import AnswersGroup from "./AnswersGroup";
-import QuestionStatement from "./QuestionStatement";
-import { Button } from "../button";
-import Header from "./Header";
+import AnswersGroup from "../AnswersGroup";
+import QuestionStatement from "../QuestionStatement";
+import { Button } from "../../button";
+import Header from "../Header";
+import "katex/dist/katex.min.css";
+import { InlineMath, BlockMath } from "react-katex";
 
 export default function QuestionScreen() {
   const [number1, setNumber1] = useState(Math.floor(Math.random() * 100));
@@ -28,7 +30,11 @@ export default function QuestionScreen() {
     <div className="h-screen flex flex-col justify-evenly items-center text-center questionScreen">
       <Header />
       <section className="flex-1 w-full p-5 flex-col">
-        <QuestionStatement number1={number1} number2={number2} />
+        <QuestionStatement
+          number1={number1}
+          number2={number2}
+          operation={<InlineMath math="\frac{1}{2}" />}
+        />
       </section>
       <section className="flex-9 w-full p-5 flex-col">
         <AnswersGroup
