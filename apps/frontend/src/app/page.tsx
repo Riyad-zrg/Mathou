@@ -6,5 +6,10 @@ export default async function Home() {
   const accessToken = cookieStore.get("access_token");
   const jwt = accessToken?.value;
   const jwtPayload = await getJWTpayload(jwt);
-  return <p>Bienvenue {jwtPayload.firstname}! Tu es sur la hub page !</p>;
+  return (
+    <div>
+      <p>Bienvenue {jwtPayload.firstname}! Tu es sur la hub page !</p>
+      <a href="/maths/addition">Addition</a>
+    </div>
+  );
 }
