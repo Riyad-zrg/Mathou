@@ -87,23 +87,20 @@ export default function QuestionScreen() {
 
   const generateRandomAnswer = () => {
     let result = "";
-    switch (operateur) {
-      case "+":
-        let resNumerateur =
-          Math.floor(Math.random() * 100) * Math.floor(Math.random() * 100) +
-          Math.floor(Math.random() * 100) * Math.floor(Math.random() * 100);
-        let resDenominateur =
-          Math.floor(Math.random() * 100) * Math.floor(Math.random() * 100);
-        const gcd = getGcd(resNumerateur, resDenominateur);
-        resNumerateur = resNumerateur / gcd;
-        resDenominateur = resDenominateur / gcd;
-        result =
-          "\\frac{" +
-          resNumerateur.toString() +
-          "}{" +
-          resDenominateur.toString() +
-          "}";
-    }
+    let resNumerateur =
+      Math.floor(Math.random() * 100) * Math.floor(Math.random() * 100) +
+      Math.floor(Math.random() * 100) * Math.floor(Math.random() * 100);
+    let resDenominateur =
+      Math.floor(Math.random() * 100) * Math.floor(Math.random() * 100);
+    const gcd = getGcd(resNumerateur, resDenominateur);
+    resNumerateur = resNumerateur / gcd;
+    resDenominateur = resDenominateur / gcd;
+    result =
+      "\\frac{" +
+      resNumerateur.toString() +
+      "}{" +
+      resDenominateur.toString() +
+      "}";
     return result;
   };
 
