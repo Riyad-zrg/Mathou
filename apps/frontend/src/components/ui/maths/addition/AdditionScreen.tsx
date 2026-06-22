@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import AnswersGroup from "./AnswersGroup";
 import QuestionStatement from "./QuestionStatement";
-import { Button } from "../button";
-import Header from "./Header";
+import { Button } from "../../button";
+import Header from "../Header";
 
-export default function QuestionScreen() {
+export default function AdditionScreen() {
   const [number1, setNumber1] = useState(Math.floor(Math.random() * 100));
   const [number2, setNumber2] = useState(Math.floor(Math.random() * 100));
   const [isMounted, setIsMounted] = useState(false);
@@ -28,7 +28,7 @@ export default function QuestionScreen() {
     <div className="h-screen flex flex-col justify-evenly items-center text-center questionScreen">
       <Header />
       <section className="flex-1 w-full p-5 flex-col">
-        <QuestionStatement number1={number1} number2={number2} />
+        <QuestionStatement operation={`${number1} + ${number2} ?`} />
       </section>
       <section className="flex-9 w-full p-5 flex-col">
         <AnswersGroup

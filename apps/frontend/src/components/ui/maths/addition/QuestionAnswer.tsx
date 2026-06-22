@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { Card, CardContent } from "../card";
+import { Card, CardContent } from "../../card";
 
 interface QuestionAnswerProps {
-  value: number;
+  value: any;
   isCorrectAnswer: boolean;
   handleClickOnAnswer: () => void;
   hasUserAnswered: boolean;
