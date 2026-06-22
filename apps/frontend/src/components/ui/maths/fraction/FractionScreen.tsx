@@ -7,8 +7,7 @@ import { InlineMath } from "react-katex";
 import FractionAnswersGroup from "./FractionAnswersGroup";
 
 export default function QuestionScreen() {
-  // const listeOperateurs = ["-", "+", "x"];
-  const listeOperateurs = ["+"];
+  const listeOperateurs = ["-", "+", "x"];
 
   const [numerateur1, setNumerateur1] = useState(
     Math.floor(Math.random() * 100),
@@ -60,22 +59,29 @@ export default function QuestionScreen() {
   };
 
   const getResult = () => {
-    let result = "";
+    let resNumerateur = 0;
     switch (operateur) {
       case "+":
-        let resNumerateur =
+        resNumerateur =
           numerateur1 * denominateur2 + numerateur2 * denominateur1;
-        let resDenominateur = denominateur1 * denominateur2;
-        const gcd = getGcd(resNumerateur, resDenominateur);
-        resNumerateur = resNumerateur / gcd;
-        resDenominateur = resDenominateur / gcd;
-        result =
-          "\\frac{" +
-          resNumerateur.toString() +
-          "}{" +
-          resDenominateur.toString() +
-          "}";
+      case "-":
+        resNumerateur =
+          numerateur1 * denominateur2 - numerateur2 * denominateur1;
+      case "x":
+        resNumerateur = numerateur1 * numerateur2;
     }
+
+    let resDenominateur = denominateur1 * denominateur2;
+    let gcd = getGcd(resNumerateur, resDenominateur);
+    resNumerateur = resNumerateur / gcd;
+    resDenominateur = resDenominateur / gcd;
+    const result =
+      "\\frac{" +
+      resNumerateur.toString() +
+      "}{" +
+      resDenominateur.toString() +
+      "}";
+
     return result;
   };
 
