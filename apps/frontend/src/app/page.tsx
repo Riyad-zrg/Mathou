@@ -9,9 +9,9 @@ export default async function Home() {
   return (
     <div>
       <p>Bienvenue {jwtPayload.firstname}! Tu es sur la hub page !</p>
-      <a href="/maths/addition">Addition</a>
+      <a href="/maths/addition">Additions</a>
       <br />
-      <a href="/maths/fractions">Fractions</a>
+      <a href="/maths/fraction">Fractions</a>
     </div>
   );
 }
