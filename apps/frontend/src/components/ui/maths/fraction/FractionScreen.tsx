@@ -41,6 +41,9 @@ export default function QuestionScreen() {
     setNumerateur2(Math.floor(Math.random() * 100));
     setDenominateur1(Math.floor(Math.random() * 100));
     setDenominateur2(Math.floor(Math.random() * 100));
+    setOperateur(
+      listeOperateurs[Math.floor(listeOperateurs.length * Math.random())],
+    );
   };
 
   const fraction1 = "\\frac{" + numerateur1 + "}{" + denominateur1 + "}";
@@ -64,11 +67,16 @@ export default function QuestionScreen() {
       case "+":
         resNumerateur =
           numerateur1 * denominateur2 + numerateur2 * denominateur1;
+        break;
+
+      case "x":
+        resNumerateur = numerateur1 * numerateur2;
+        break;
+
       case "-":
         resNumerateur =
           numerateur1 * denominateur2 - numerateur2 * denominateur1;
-      case "x":
-        resNumerateur = numerateur1 * numerateur2;
+        break;
     }
 
     let resDenominateur = denominateur1 * denominateur2;
