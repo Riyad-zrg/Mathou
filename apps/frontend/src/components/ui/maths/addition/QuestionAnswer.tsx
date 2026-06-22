@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Card, CardContent } from "../card";
+import { Card, CardContent } from "../../card";
 
 interface QuestionAnswerProps {
   value: any;

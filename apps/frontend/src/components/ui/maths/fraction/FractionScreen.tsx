@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import AnswersGroup from "../AnswersGroup";
-import QuestionStatement from "../QuestionStatement";
+import QuestionStatement from "../addition/QuestionStatement";
 import { Button } from "../../button";
 import Header from "../Header";
 import "katex/dist/katex.min.css";
-import { InlineMath, BlockMath } from "react-katex";
+import { InlineMath } from "react-katex";
+import FractionAnswersGroup from "./FractionAnswersGroup";
 
 export default function QuestionScreen() {
   // const listeOperateurs = ["-", "+", "x"];
@@ -79,6 +79,16 @@ export default function QuestionScreen() {
     return result;
   };
 
+  const generateRandomAnswer = () => {
+    const randomFraction =
+      "\\frac{" +
+      Math.floor(Math.random() * 100).toString() +
+      "}{" +
+      Math.floor(Math.random() * 100).toString() +
+      "}";
+    return randomFraction;
+  };
+
   return (
     <div className="h-screen flex flex-col justify-evenly items-center text-center questionScreen">
       <Header />
@@ -93,10 +103,11 @@ export default function QuestionScreen() {
         />
       </section>
       <section className="flex-9 w-full p-5 flex-col">
-        <AnswersGroup
+        <FractionAnswersGroup
           hasUserAnswered={hasUserAnswered}
           setHasUserAnswered={(boolean) => setHasUserAnswered(boolean)}
-          result={<InlineMath math={getResult()}></InlineMath>}
+          result={getResult()}
+          generateRandom={generateRandomAnswer}
         />
       </section>
       <div className="flex-2">

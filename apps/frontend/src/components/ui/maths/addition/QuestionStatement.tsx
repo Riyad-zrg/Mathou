@@ -1,4 +1,4 @@
-import { Item, ItemContent, ItemTitle } from "../item";
+import { Item, ItemContent, ItemTitle } from "../../item";
 
 interface QuestionStatementProps {
   operation: any;
