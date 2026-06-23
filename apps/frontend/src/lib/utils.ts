@@ -17,7 +17,7 @@ export async function getJWTpayload(jwt: string | undefined) {
   return payload;
 }
 
-export async function shuffle(array: any[]) {
+export function shuffle(array: any[]) {
   let currentIndex = array.length;
 
   while (currentIndex != 0) {

@@ -1,21 +1,21 @@
 import { shuffle } from "@/src/lib/utils";
-import QuestionAnswer from "./PrioritiesAnswer";
 import { useEffect, useState } from "react";
 import { InlineMath } from "react-katex";
+import PrioritiesAnswer from "./PrioritesAnswer";
 
-interface FractionAnswersGroup {
+interface PrioritiesAnswersGroup {
   hasUserAnswered: boolean;
   setHasUserAnswered: (boolean: boolean) => void;
   result: any;
   generateRandom: any;
 }
 
-export default function AnswersGroup({
+export default function PrioritiesAnswersGroup({
   hasUserAnswered,
   setHasUserAnswered,
   result,
   generateRandom,
-}: FractionAnswersGroup) {
+}: PrioritiesAnswersGroup) {
   const [resultList, setResultList] = useState<number[]>([]);
 
   const handleClickOnAnswer = () => {
@@ -42,7 +42,7 @@ export default function AnswersGroup({
   return (
     <div className="grid grid-cols-2 h-full items-center gap-5 p-2 questionAnswer lg:px-30 lg:py-10">
       {resultList.map((answerValue, id) => (
-        <QuestionAnswer
+        <PrioritiesAnswer
           value={
             <InlineMath key={1} math={answerValue.toString()}></InlineMath>
           }

@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent } from "../../card";
 
-interface QuestionAnswerProps {
+interface PrioritiesAnswerProps {
   value: any;
   isCorrectAnswer: boolean;
   handleClickOnAnswer: () => void;
   hasUserAnswered: boolean;
 }
-export default function QuestionAnswer({
+export default function PrioritiesAnswer({
   value,
   isCorrectAnswer,
   handleClickOnAnswer,
   hasUserAnswered,
-}: QuestionAnswerProps) {
+}: PrioritiesAnswerProps) {
   const [hasBeenChosen, setHasBeenChosen] = useState(false);
   useEffect(() => {
     if (!hasUserAnswered) {
