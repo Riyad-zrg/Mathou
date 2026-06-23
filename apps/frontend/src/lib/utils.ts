@@ -46,3 +46,7 @@ export function getGcd(a: number, b: number) {
   }
   return res;
 }
+
+export function isFloat(n: number) {
+  return Number(n) === n && n % 1 !== 0;
+}
