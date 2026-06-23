@@ -8,10 +8,14 @@ export default async function Home() {
   const jwtPayload = await getJWTpayload(jwt);
   return (
     <div>
-      <p>Bienvenue {jwtPayload.firstname}! Tu es sur la hub page !</p>
+      {/* <p>Bienvenue {jwtPayload.firstname}! Tu es sur la hub page !</p> */}
       <a href="/maths/addition">Additions</a>
       <br />
       <a href="/maths/fraction">Fractions</a>
+      <br />
+      <a href="/maths/derivation">Dérivations</a>
+      <br />
+      <a href="/maths/factorization">Factorisations</a>
     </div>
   );
 }
