@@ -17,7 +17,7 @@ export async function getJWTpayload(jwt: string | undefined) {
   return payload;
 }
 
-export async function shuffle(array: any[]) {
+export function shuffle(array: any[]) {
   let currentIndex = array.length;
 
   while (currentIndex != 0) {
@@ -45,4 +45,8 @@ export function getGcd(a: number, b: number) {
     num++;
   }
   return res;
+}
+
+export function isFloat(n: number) {
+  return Number(n) === n && n % 1 !== 0;
 }
