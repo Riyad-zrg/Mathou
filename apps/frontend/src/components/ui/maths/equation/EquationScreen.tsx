@@ -5,7 +5,7 @@ import "katex/dist/katex.min.css";
 import { InlineMath } from "react-katex";
 import EquationAnswersGroup from "./EquationAnswersGroup";
 import EquationStatement from "./EquationStatement";
-import { randomIntFromInterval } from "@/src/lib/utils";
+import { randomIntFromInterval, shuffle } from "@/src/lib/utils";
 
 export default function EquationScreen() {
   const [number1, setNumber1] = useState(randomIntFromInterval(1, 10));
@@ -14,9 +14,14 @@ export default function EquationScreen() {
   const [number4, setNumber4] = useState(randomIntFromInterval(1, 10));
   const [isMounted, setIsMounted] = useState(false);
   const [hasUserAnswered, setHasUserAnswered] = useState<boolean>(false);
+  const [operation, setOperation] = useState<string | null>(null);
 
   useEffect(() => {
     setIsMounted(true);
+    const listeOperateurs = ["+", "-"];
+    shuffle(listeOperateurs);
+    const operation = `${number1}x ${listeOperateurs[Math.floor(Math.random() * listeOperateurs.length)]} ${number2} = ${number3}x ${listeOperateurs[Math.floor(Math.random() * listeOperateurs.length)]} ${number4}`;
+    setOperation(operation);
   }, []);
 
   if (!isMounted) {
@@ -30,8 +35,6 @@ export default function EquationScreen() {
     setNumber3(randomIntFromInterval(1, 10));
     setNumber4(randomIntFromInterval(1, 10));
   };
-
-  const operation = `\(${number1}x + ${number2}\) \(${number3}x + ${number4}\)= ? `;
 
   const getResult = () => {
     const result = `\(${number1 * number3}x^2 + ${number1 * number4 + number2 * number3}x + ${number2 * number4}\)`;
