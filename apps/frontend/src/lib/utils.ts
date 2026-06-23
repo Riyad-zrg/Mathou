@@ -34,3 +34,15 @@ export async function shuffle(array: any[]) {
 export function randomIntFromInterval(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
+
+export function getGcd(a: number, b: number) {
+  let num = 2,
+    res = 1;
+  while (num <= Math.min(a, b)) {
+    if (a % num === 0 && b % num === 0) {
+      res = num;
+    }
+    num++;
+  }
+  return res;
+}

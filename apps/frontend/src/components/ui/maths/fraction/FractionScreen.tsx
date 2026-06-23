@@ -5,6 +5,7 @@ import Header from "../Header";
 import "katex/dist/katex.min.css";
 import { InlineMath } from "react-katex";
 import FractionAnswersGroup from "./FractionAnswersGroup";
+import { getGcd } from "@/src/lib/utils";
 
 export default function QuestionScreen() {
   const listeOperateurs = ["-", "+", "x"];
@@ -48,18 +49,6 @@ export default function QuestionScreen() {
 
   const fraction1 = "\\frac{" + numerateur1 + "}{" + denominateur1 + "}";
   const fraction2 = "\\frac{" + numerateur2 + "}{" + denominateur2 + "}";
-
-  const getGcd = (a: number, b: number) => {
-    let num = 2,
-      res = 1;
-    while (num <= Math.min(a, b)) {
-      if (a % num === 0 && b % num === 0) {
-        res = num;
-      }
-      num++;
-    }
-    return res;
-  };
 
   const getResult = () => {
     let resNumerateur = 0;
