@@ -5,24 +5,22 @@ import "katex/dist/katex.min.css";
 import { InlineMath } from "react-katex";
 import EquationAnswersGroup from "./EquationAnswersGroup";
 import EquationStatement from "./EquationStatement";
-import { randomIntFromInterval, shuffle } from "@/src/lib/utils";
+import { isFloat, randomIntFromInterval, shuffle } from "@/src/lib/utils";
 
 export default function EquationScreen() {
-  const [number1, setNumber1] = useState(randomIntFromInterval(1, 10));
-  const [number2, setNumber2] = useState(randomIntFromInterval(1, 10));
-  const [number3, setNumber3] = useState(randomIntFromInterval(1, 10));
-  const [number4, setNumber4] = useState(randomIntFromInterval(1, 10));
+  const [number1, setNumber1] = useState(randomIntFromInterval(-10, 10, [0]));
+  const [number2, setNumber2] = useState(randomIntFromInterval(-10, 10, [0]));
+  const [number3, setNumber3] = useState(randomIntFromInterval(-10, 10, [0]));
+  const [number4, setNumber4] = useState(randomIntFromInterval(-10, 10, [0]));
   const [isMounted, setIsMounted] = useState(false);
   const [hasUserAnswered, setHasUserAnswered] = useState<boolean>(false);
   const [operation, setOperation] = useState<string | null>(null);
 
   useEffect(() => {
     setIsMounted(true);
-    const listeOperateurs = ["+", "-"];
-    shuffle(listeOperateurs);
-    const operation = `${number1}x ${listeOperateurs[Math.floor(Math.random() * listeOperateurs.length)]} ${number2} = ${number3}x ${listeOperateurs[Math.floor(Math.random() * listeOperateurs.length)]} ${number4}`;
+    const operation = `${number1}x ${number2 < 0 ? "" : "+"} ${number2} = ${number3}x ${number4 < 0 ? "" : "+"} ${number4}`;
     setOperation(operation);
-  }, []);
+  }, [number1, number2, number3, number4]);
 
   if (!isMounted) {
     return null;
@@ -30,19 +28,32 @@ export default function EquationScreen() {
 
   const onNextClick = () => {
     setHasUserAnswered(false);
-    setNumber1(randomIntFromInterval(1, 10));
-    setNumber2(randomIntFromInterval(1, 10));
-    setNumber3(randomIntFromInterval(1, 10));
-    setNumber4(randomIntFromInterval(1, 10));
+    setNumber1(randomIntFromInterval(-10, 10, [0]));
+    setNumber2(randomIntFromInterval(-10, 10, [0]));
+    setNumber3(randomIntFromInterval(-10, 10, [0]));
+    setNumber4(randomIntFromInterval(-10, 10, [0]));
+
+    if (number1 - number3 === 0) {
+      setNumber1(randomIntFromInterval(-10, 10, [0]));
+      setNumber2(randomIntFromInterval(-10, 10, [0]));
+      setNumber3(randomIntFromInterval(-10, 10, [0]));
+      setNumber4(randomIntFromInterval(-10, 10, [0]));
+    }
   };
 
   const getResult = () => {
-    const result = `\(${number1 * number3}x^2 + ${number1 * number4 + number2 * number3}x + ${number2 * number4}\)`;
+    const solution = (number4 - number2) / (number1 - number3);
+    const result = `x = ${isFloat(solution) ? solution.toFixed(2) : solution}`;
     return result;
   };
 
   const generateRandomAnswer = () => {
-    const result = `\(${randomIntFromInterval(1, 100)}x^2 + ${randomIntFromInterval(1, 100)}x + ${randomIntFromInterval(1, 100)}\)`;
+    const solution =
+      (randomIntFromInterval(-10, 10, [0]) -
+        randomIntFromInterval(-10, 10, [0])) /
+      (randomIntFromInterval(-10, 10, [0]) -
+        randomIntFromInterval(-10, 10, [0]));
+    const result = `x = ${isFloat(solution) ? solution.toFixed(2) : solution}`;
     return result;
   };
 

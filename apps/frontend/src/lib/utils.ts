@@ -31,8 +31,16 @@ export function shuffle(array: any[]) {
   }
 }
 
-export function randomIntFromInterval(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
+export function randomIntFromInterval(
+  min: number,
+  max: number,
+  exceptions = [-100000000000],
+) {
+  let number = Math.floor(Math.random() * (max - min + 1) + min);
+  while (number in exceptions) {
+    number = Math.floor(Math.random() * (max - min + 1) + min);
+  }
+  return number;
 }
 
 export function getGcd(a: number, b: number) {
