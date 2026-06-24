@@ -36,13 +36,41 @@ export default async function Home() {
       </section>
 
       <section className="grid grid-cols-3 grid-rows-3 grow p-5 gap-5 justify-center">
-        <HomeCard icon={<Plus size={60} />} label={"Additions"} />
-        <HomeCard icon={<SquareDivide size={60} />} label={"Fractions"} />
-        <HomeCard icon={<Diff size={60} />} label={"Priorités opératoires"} />
-        <HomeCard icon={<Parentheses size={60} />} label={"Dérivations"} />
-        <HomeCard icon={<Equal size={60} />} label={"Équations"} />
-        <HomeCard icon={<Calculator size={60} />} label={"Factorisations"} />
-        <HomeCard icon={<Grid2x2 size={60} />} label={"Proportionnalité"} />
+        <HomeCard
+          icon={<Plus size={60} />}
+          label={"Additions"}
+          link={"/maths/addition"}
+        />
+        <HomeCard
+          icon={<SquareDivide size={60} />}
+          label={"Fractions"}
+          link={"/maths/fraction"}
+        />
+        <HomeCard
+          icon={<Diff size={60} />}
+          label={"Priorités opératoires"}
+          link={"/maths/priorities"}
+        />
+        <HomeCard
+          icon={<Parentheses size={60} />}
+          label={"Dérivations"}
+          link={"/maths/derivation"}
+        />
+        <HomeCard
+          icon={<Equal size={60} />}
+          label={"Équations"}
+          link={"/maths/equation"}
+        />
+        <HomeCard
+          icon={<Calculator size={60} />}
+          label={"Factorisations"}
+          link={"/maths/factorization"}
+        />
+        <HomeCard
+          icon={<Grid2x2 size={60} />}
+          label={"Proportionnalité"}
+          link={"/maths/proportionality"}
+        />
       </section>
 
       <section className="flex flex-1 grow-0 bg-purple-500 justify-center p-3 header">
