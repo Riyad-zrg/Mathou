@@ -20,6 +20,8 @@ export default async function Home() {
       <a href="/maths/priorities">Priorités opératoires</a>
       <br />
       <a href="/maths/equation">Équations</a>
+      <br />
+      <a href="/maths/proportionality">Proportionnalité</a>
     </div>
   );
 }
