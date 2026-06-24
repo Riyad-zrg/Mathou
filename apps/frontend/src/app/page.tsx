@@ -47,7 +47,7 @@ export default async function Home() {
 
       <section className="flex flex-1 grow-0 bg-purple-500 justify-center p-3 header">
         <p className="text-white text-xs font-light font-sans">
-          2026 SOCATOA, Tous droits réservés
+          © 2026 SOCATOA, Tous droits réservés
         </p>
       </section>
     </div>
