@@ -1,4 +1,4 @@
-import { shuffle } from "@/src/lib/utils";
+import { isFloat, shuffle } from "@/src/lib/utils";
 import { useEffect, useState } from "react";
 import { InlineMath } from "react-katex";
 import ProportionalityAnswer from "./ProportionalityAnswer";
@@ -44,7 +44,14 @@ export default function ProportionalityAnswersGroup({
       {resultList.map((answerValue, id) => (
         <ProportionalityAnswer
           value={
-            <InlineMath key={1} math={answerValue.toString()}></InlineMath>
+            <InlineMath
+              key={1}
+              math={
+                isFloat(answerValue)
+                  ? answerValue.toFixed(2).toString()
+                  : answerValue.toString()
+              }
+            ></InlineMath>
           }
           isCorrectAnswer={answerValue === result}
           handleClickOnAnswer={handleClickOnAnswer}

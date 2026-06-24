@@ -12,6 +12,7 @@ export default function ProportionalityScreen() {
   const [number3, setNumber3] = useState(randomIntFromInterval(1, 10));
   const [isMounted, setIsMounted] = useState(false);
   const [hasUserAnswered, setHasUserAnswered] = useState<boolean>(false);
+  const [problemObject, setProblemObject] = useState<object | null>(null);
 
   const problemes = [
     {
@@ -92,8 +93,12 @@ export default function ProportionalityScreen() {
   ];
 
   useEffect(() => {
+    const problemObject =
+      problemes[Math.floor(Math.random() * problemes.length)];
+    setProblemObject(problemObject);
+
     setIsMounted(true);
-  }, []);
+  }, [number1, number2, number3]);
 
   if (!isMounted) {
     return null;
@@ -106,15 +111,15 @@ export default function ProportionalityScreen() {
     setNumber3(randomIntFromInterval(1, 10));
   };
 
-  const problemObject = problemes[Math.floor(Math.random() * problemes.length)];
-
   const getResult = () => {
-    return 0;
+    return (number2 * number3) / number1;
   };
 
   const generateRandomAnswer = () => {
-    const result = `\(${randomIntFromInterval(1, 100)}x^2 + ${randomIntFromInterval(1, 100)}x + ${randomIntFromInterval(1, 100)}\)`;
-    return result;
+    return (
+      (randomIntFromInterval(1, 10) * randomIntFromInterval(1, 10)) /
+      randomIntFromInterval(1, 10)
+    );
   };
 
   return (

@@ -22,16 +22,18 @@ export default function ProportionalityStatement({
           </ItemTitle>
           <section className="w-full pb-5">
             <table className="border-5 w-full text-3xl">
-              <tr className="border-2">
-                <td className="border w-150 p-2 ">{problemObject.valeur1}</td>
-                <td className="border">{number1}</td>
-                <td className="border">{number3}</td>
-              </tr>
-              <tr className="border ">
-                <td className="border p-2">{problemObject.valeur2}</td>
-                <td className="border">{number2}</td>
-                <td className="border font-black text-red-500">?</td>
-              </tr>
+              <tbody>
+                <tr className="border-2">
+                  <td className="border w-150 p-2 ">{problemObject.valeur1}</td>
+                  <td className="border">{number1}</td>
+                  <td className="border">{number3}</td>
+                </tr>
+                <tr className="border ">
+                  <td className="border p-2">{problemObject.valeur2}</td>
+                  <td className="border">{number2}</td>
+                  <td className="border font-black text-red-500">?</td>
+                </tr>
+              </tbody>
             </table>
           </section>
         </ItemContent>
