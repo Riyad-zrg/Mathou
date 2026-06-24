@@ -5,7 +5,7 @@ import "katex/dist/katex.min.css";
 import { InlineMath } from "react-katex";
 import EquationAnswersGroup from "./EquationAnswersGroup";
 import EquationStatement from "./EquationStatement";
-import { isFloat, randomIntFromInterval, shuffle } from "@/src/lib/utils";
+import { isFloat, randomIntFromInterval } from "@/src/lib/utils";
 
 export default function EquationScreen() {
   const [number1, setNumber1] = useState(randomIntFromInterval(-10, 10, [0]));
