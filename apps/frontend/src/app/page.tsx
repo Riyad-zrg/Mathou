@@ -35,7 +35,7 @@ export default async function Home() {
         </span>
       </section>
 
-      <section className="grid grid-cols-3 grid-rows-3 grow p-5 gap-5 justify-center">
+      <section className="grid grid-cols-2 md:grid-cols-3 grid-rows-3 grow p-5 gap-5 justify-center">
         <HomeCard
           icon={<Plus size={60} />}
           label={"Additions"}
@@ -48,7 +48,7 @@ export default async function Home() {
         />
         <HomeCard
           icon={<Diff size={60} />}
-          label={"Priorités opératoires"}
+          label={"Priorités"}
           link={"/maths/priorities"}
         />
         <HomeCard
