@@ -20,8 +20,16 @@ export default async function Home() {
   const jwtPayload = await getJWTpayload(jwt);
   return (
     <div className="flex flex-1 flex-col h-screen">
-      {/* <p>Bienvenue {jwtPayload.firstname}! Tu es sur la hub page !</p> */}
       <section className="flex grow-0 bg-purple-500 justify-center p-3 header">
+        <span className="w-full absolute pl-5 font-sans text-white pt-1">
+          <p className="absolute text-start">
+            Bienvenue sur Socatoa{" "}
+            {jwtPayload !== null && (
+              <span className="font-semibold">{jwtPayload.firstname} </span>
+            )}
+            !
+          </p>
+        </span>
         <p className="text-white text-3xl font-semibold font-sans">SOCATOA</p>
         <span className="absolute flex w-full justify-end pr-3">
           <Button
