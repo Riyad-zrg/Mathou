@@ -51,6 +51,24 @@ export async function signUp(data: any) {
   }
 }
 
+export async function logout() {
+  const url = `http://localhost:4000/auth/logout`;
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      credentials: "include",
+    });
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    console.log(result);
+  } catch (error: any) {
+    console.error(error.message);
+  }
+}
+
 export async function verifyEmail(token: string | null, email: string) {
   let isError = false;
   try {

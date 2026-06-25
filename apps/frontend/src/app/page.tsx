@@ -1,10 +1,8 @@
 import { cookies } from "next/headers";
 import { getJWTpayload } from "../lib/utils";
-import { Button } from "../components/ui/button";
 import {
   Diff,
   Equal,
-  LogOut,
   Parentheses,
   Plus,
   SquareDivide,
@@ -12,12 +10,19 @@ import {
   Grid2x2,
 } from "lucide-react";
 import HomeCard from "../components/ui/hubpage/HomeCard";
+import LogOutButton from "../components/ui/hubpage/LogOutButton";
 
 export default async function Home() {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("access_token");
   const jwt = accessToken?.value;
   const jwtPayload = await getJWTpayload(jwt);
+
+  const onLogout = () => {
+    cookieStore.delete("access_token");
+    // redirect("/login", RedirectType.replace);
+  };
+
   return (
     <div className="flex flex-1 flex-col h-screen">
       <section className="flex grow-0 bg-purple-500 justify-center p-3 header">
@@ -32,14 +37,7 @@ export default async function Home() {
         </span>
         <p className="text-white text-3xl font-semibold font-sans">SOCATOA</p>
         <span className="absolute flex w-full justify-end pr-3">
-          <Button
-            variant="outline"
-            size="icon"
-            className="absolute bg-red-500 border-2 border-purple-900 text-white"
-            color="red"
-          >
-            <LogOut />
-          </Button>
+          <LogOutButton></LogOutButton>
         </span>
       </section>
 
