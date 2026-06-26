@@ -12,11 +12,16 @@ export async function fetchAccessToken(data: any) {
       body: JSON.stringify({ email: data.email, password: data.password }),
     });
 
+    const result = await response.json();
+
     if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
+      throw new Error(result["message"]);
     }
   } catch (error: any) {
-    console.error(error.message);
+    toast.error(error.message, {
+      position: "top-center",
+      closeButton: true,
+    });
   } finally {
     redirect("/");
   }
