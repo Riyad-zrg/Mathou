@@ -10,6 +10,14 @@ const PUBLIC_ROUTES = [
   "/password-reset/specify-email",
   "/password-reset/check-email",
   "/password-reset/choose-password",
+  "/",
+  "/maths/addition",
+  "/maths/derivation",
+  "/maths/equation",
+  "/maths/factorization",
+  "/maths/priorities",
+  "/maths/proportionality",
+  "/maths/fraction",
 ];
 
 export function proxy(request: NextRequest) {

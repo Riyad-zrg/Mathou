@@ -1,10 +1,8 @@
-import { House } from "lucide-react";
 import { Button } from "../button";
-import { Item } from "../item";
 
-export default function Header() {
+export default function MathHeader() {
   return (
-    <div className="flex flex-1 font-medium justify-center lg:justify-start flex-row w-full h-full align-center bg-purple-500 header">
+    <div className="flex flex-1 font-medium justify-center lg:justify-start flex-row w-full h-full align-center bg-purple-500 header p-1 md:p-0">
       <section className="flex absolute w-full justify-start pl-3 self-center items-end">
         <a href="/">
           <Button

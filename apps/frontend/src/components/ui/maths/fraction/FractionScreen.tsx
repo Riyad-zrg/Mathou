@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import QuestionStatement from "../addition/QuestionStatement";
 import { Button } from "../../button";
-import Header from "../Header";
+import Header from "../MathHeader";
 import "katex/dist/katex.min.css";
 import { InlineMath } from "react-katex";
 import FractionAnswersGroup from "./FractionAnswersGroup";

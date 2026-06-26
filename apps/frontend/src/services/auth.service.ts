@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { toast } from "sonner";
 
 export async function fetchAccessToken(data: any) {
+  let isError = false;
   try {
     const response = await fetch(`http://localhost:4000/auth/login`, {
       method: "POST",
@@ -13,12 +14,20 @@ export async function fetchAccessToken(data: any) {
     });
 
     if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
+      const result = await response.json();
+      throw new Error(result["message"]);
     }
   } catch (error: any) {
     console.error(error.message);
+    isError = true;
+    toast.error(error.message, {
+      position: "top-center",
+      closeButton: true,
+    });
   } finally {
-    redirect("/");
+    if (!isError) {
+      redirect("/");
+    }
   }
 }
 
