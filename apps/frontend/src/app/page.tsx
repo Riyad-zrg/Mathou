@@ -18,11 +18,6 @@ export default async function Home() {
   const jwt = accessToken?.value;
   const jwtPayload = await getJWTpayload(jwt);
 
-  const onLogout = () => {
-    cookieStore.delete("access_token");
-    // redirect("/login", RedirectType.replace);
-  };
-
   return (
     <div className="flex flex-1 flex-col h-screen">
       <section className="flex grow-0 bg-purple-500 justify-center p-3 header">
