@@ -21,14 +21,19 @@ export default async function Home() {
   return (
     <div className="flex flex-1 flex-col h-screen">
       <section className="flex grow-0 bg-purple-500 justify-center p-3 header">
-        <span className="w-full absolute pl-5 font-sans text-white pt-1">
-          <p className="absolute text-start">
+        <span className="w-full absolute pl-5 font-sans text-white pt-1.5">
+          <p className="absolute text-start invisible md:visible">
             Bienvenue sur Socatoa{" "}
             {jwtPayload !== null && (
-              <span className="font-semibold">{jwtPayload.firstname} </span>
+              <span className="font-semibold ">{jwtPayload.firstname} </span>
             )}
             !
           </p>
+          {jwtPayload !== null && (
+            <span className="font-semibold visible md:invisible">
+              {jwtPayload.firstname}{" "}
+            </span>
+          )}
         </span>
         <p className="text-white text-3xl font-semibold font-sans">SOCATOA</p>
         <span className="absolute flex w-full justify-end pr-3">
