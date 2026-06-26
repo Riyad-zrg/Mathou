@@ -3,10 +3,15 @@ import { LogOut } from "lucide-react";
 import { Button } from "../button";
 import { logout } from "@/src/services/auth.service";
 import { redirect, RedirectType } from "next/navigation";
+import { toast } from "sonner";
 
 export default function LogOutButton() {
   const onLogout = async () => {
     await logout();
+    toast.success("Vous avez bien été déconnecté de l'application.", {
+      position: "top-center",
+      closeButton: true,
+    });
     redirect("/login", RedirectType.replace);
   };
   return (
