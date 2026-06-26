@@ -136,7 +136,7 @@ export class AuthService {
 
     if (!user) {
       throw new NotFoundException(
-        "Aucun utilisateur avec cette adresse e-mail n'a été trouvé.",
+        'Les informations de connexion saisies sont incorrectes. ',
       );
     }
 
@@ -150,7 +150,7 @@ export class AuthService {
 
     if (!match) {
       throw new UnauthorizedException(
-        'Le mot de passe renseigné est incorrect.',
+        'Les informations de connexion saisies sont incorrectes. ',
       );
     }
 
