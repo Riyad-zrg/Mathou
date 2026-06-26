@@ -1,5 +1,3 @@
-import { cookies } from "next/headers";
-import { getJWTpayload } from "../lib/utils";
 import {
   Diff,
   Equal,
@@ -10,37 +8,12 @@ import {
   Grid2x2,
 } from "lucide-react";
 import HomeCard from "../components/ui/hubpage/HomeCard";
-import LogOutButton from "../components/ui/hubpage/LogOutButton";
+import Header from "../components/ui/global/Header";
 
 export default async function Home() {
-  const cookieStore = await cookies();
-  const accessToken = cookieStore.get("access_token");
-  const jwt = accessToken?.value;
-  const jwtPayload = await getJWTpayload(jwt);
-
   return (
     <div className="flex flex-1 flex-col h-screen">
-      <section className="flex grow-0 bg-purple-500 justify-center p-3 header">
-        <span className="w-full absolute pl-5 font-sans text-white pt-1.5">
-          <p className="absolute text-start invisible md:visible">
-            Bienvenue sur Socatoa{" "}
-            {jwtPayload !== null && (
-              <span className="font-semibold ">{jwtPayload.firstname} </span>
-            )}
-            !
-          </p>
-          {jwtPayload !== null && (
-            <span className="font-semibold visible md:invisible">
-              {jwtPayload.firstname}{" "}
-            </span>
-          )}
-        </span>
-        <p className="text-white text-3xl font-semibold font-sans">SOCATOA</p>
-        <span className="absolute flex w-full justify-end pr-3">
-          <LogOutButton></LogOutButton>
-        </span>
-      </section>
-
+      <Header />
       <section className="grid grid-cols-2 md:grid-cols-3 grid-rows-3 grow p-5 gap-5 justify-center">
         <HomeCard
           icon={<Plus size={60} />}
