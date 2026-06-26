@@ -1,10 +1,8 @@
-import { IsEmail, IsStrongPassword} from "class-validator";
+import { IsEmail, IsStrongPassword } from 'class-validator';
 
 export class SignInDto {
-    
-    @IsEmail()
-    readonly email!: string;
+  @IsEmail()
+  readonly email!: string;
 
-    @IsStrongPassword({minLength: 10})
-    readonly password!: string;
+  readonly password!: string;
 }
