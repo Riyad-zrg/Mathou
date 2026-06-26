@@ -34,6 +34,14 @@ DATABASE_URL="postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@db:5432/{POSTGRES
 
 - To send emails you need to specify a Resend API key.
 
+## Install dependencies on frontend project
+
+- Run the following command to install dependencies on the frontend project :
+
+```
+docker compose run --rm app-front npm i
+```
+
 ## Initialize Prisma
 
 Go in the /apps folder and run the command :
@@ -44,7 +52,7 @@ docker compose run --rm app-back npx prisma generate
 
 This will create a temporary docker container to generate the prisma client.
 
-It is a possibility that you also need to run migrations :
+Run database prisma migrations :
 
 ```
 docker compose run --rm app-back npx prisma migrate reset
