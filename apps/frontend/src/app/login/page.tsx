@@ -14,9 +14,7 @@ import { fetchAccessToken } from "@/src/services/auth.service";
 
 const formSchema = z.object({
   email: z.email("Le format de l'adresse e-mail est invalide."),
-  password: z.string().min(10, {
-    message: "Le mot de passe doit faire une taille de minimum 10 caractères.",
-  }),
+  password: z.string(),
 });
 
 export default function LoginForm() {
