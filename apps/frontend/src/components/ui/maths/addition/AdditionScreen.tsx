@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import AnswersGroup from "./AnswersGroup";
 import QuestionStatement from "./QuestionStatement";
 import { Button } from "../../button";
-import Header from "../Header";
+import Header from "../MathHeader";
 
 export default function AdditionScreen() {
   const [number1, setNumber1] = useState(Math.floor(Math.random() * 100));

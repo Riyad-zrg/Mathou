@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "../../button";
-import Header from "../Header";
+import Header from "../MathHeader";
 import "katex/dist/katex.min.css";
 import { InlineMath } from "react-katex";
 import DerivationAnswersGroup from "./DerivationAnswersGroup";
