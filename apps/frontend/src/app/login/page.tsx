@@ -90,6 +90,10 @@ export default function LoginForm() {
       <section className="text-blue-500 text-center pt-5 text-sm">
         <a href="/signup">Créer un compte</a>
       </section>
+
+      <section className="text-gray-500 text-center pt-10 text-[15px]">
+        <a href="/">Se connecter en tant qu'invité</a>
+      </section>
     </div>
   );
 }
