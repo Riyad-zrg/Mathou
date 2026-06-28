@@ -16,18 +16,15 @@ ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
 
 FROM node:${NODE_VERSION} AS production
-WORKDIR /frontend
 
 ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN mkdir .next
 RUN chown node:node .next
 
-COPY --from=builder --chown=node:node /frontend/.next/standalone ./
-COPY --from=builder --chown=node:node /frontend/.next/static ./.next/static
-
-USER node
+COPY --from=builder /frontend/.next/standalone ./
+COPY --from=builder /frontend/.next/static ./.next/static
 
 EXPOSE 3000
 
-CMD ["node", "server.js"]
+CMD ["node", "frontend/server.js"]
