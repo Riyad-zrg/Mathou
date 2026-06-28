@@ -1,38 +1,26 @@
 #Base
-FROM node:24 AS base
+FROM node:24 AS build
 
 WORKDIR /backend
 COPY package*.json /.
-
-#Dev
-
-FROM base AS dev 
-
 RUN npm i
 
 COPY . .
-RUN npx prisma generate
-RUN npm run build
 
-EXPOSE 4000
+RUN npx prisma generate && npm run build
 
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 RUN ["chmod", "+x", "/docker-entrypoint.sh"]
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
-CMD ["npm","run","start:dev"]
 
 #prod
 
-FROM base as prod
+FROM node:24 AS production
+WORKDIR /backend
+COPY --from=build /backend/dist ./dist
+COPY --from=build /backend/package*.json ./
 
-RUN npm ci
+CMD ["sh", "-c", "npm ci && npm run start:prod"]
 
-COPY . .
-RUN npx prisma generate
 
-COPY ./docker-entrypoint.sh /docker-entrypoint.sh
-RUN ["chmod", "+x", "/docker-entrypoint.sh"]
-ENTRYPOINT ["/docker-entrypoint.sh"]
-
-CMD ["npm","run","start:prod"]

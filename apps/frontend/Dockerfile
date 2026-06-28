@@ -8,8 +8,8 @@ RUN npm install
 COPY . .
 EXPOSE 3000
 
-FROM base AS dev
+FROM base AS development
 CMD ["npm", "run","dev"]
 
-FROM base AS prod
+FROM base AS production
 CMD ["npm", "run","build"]
