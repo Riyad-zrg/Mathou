@@ -20,8 +20,6 @@ WORKDIR /frontend
 
 ENV NEXT_TELEMETRY_DISABLED=1
 
-COPY --from=builder --chown=node:node /frontend/public ./public
-
 RUN mkdir .next
 RUN chown node:node .next
 
