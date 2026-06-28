@@ -78,7 +78,10 @@ export async function logout() {
   }
 }
 
-export async function verifyEmail(token: string | null, email: string) {
+export async function verifyEmail(
+  token: string | string[] | undefined,
+  email: string,
+) {
   let isError = false;
   try {
     const response = await fetch(`http://localhost:4000/auth/verify-email`, {
@@ -102,7 +105,10 @@ export async function verifyEmail(token: string | null, email: string) {
   }
 }
 
-export async function choosePassword(email: string | null, data: any) {
+export async function choosePassword(
+  email: string | string[] | undefined,
+  data: any,
+) {
   let isError = false;
   try {
     const response = await fetch(`http://localhost:4000/auth/choose-password`, {

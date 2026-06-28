@@ -76,7 +76,11 @@ const addFieldIssue = (field: string, ctx: z.RefinementCtx) => {
   });
 };
 
-export default function ChoosePassword() {
+export default async function ChoosePassword({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
   const [error, setError] = useState(null);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -86,8 +90,7 @@ export default function ChoosePassword() {
     },
   });
 
-  const searchParams = useSearchParams();
-  const userEmail = searchParams.get("email");
+  const userEmail = (await searchParams).email;
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
     setError(await choosePassword(userEmail, data));

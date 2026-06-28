@@ -32,8 +32,8 @@ export async function passwordResetCheckEmail(data: any) {
 }
 
 export async function resetChoosePassword(
-  token: string | null,
-  resetId: string | null,
+  token: string | string[] | undefined,
+  resetId: string | string[] | undefined,
   data: any,
 ) {
   let isError = false;

@@ -5,8 +5,8 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export async function getJWTpayload(jwt: string | undefined) {
-  if (!jwt) {
+export async function getJWTpayload(jwt: string | string[] | undefined) {
+  if (!jwt || typeof jwt !== "string") {
     return null;
   }
   const jwtParts = jwt.split(".");

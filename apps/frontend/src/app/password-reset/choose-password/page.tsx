@@ -76,7 +76,11 @@ const addFieldIssue = (field: string, ctx: z.RefinementCtx) => {
   });
 };
 
-export default function ChoosePasswordPage() {
+export default async function ChoosePasswordPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
   const [error, setError] = useState(null);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -86,9 +90,8 @@ export default function ChoosePasswordPage() {
     },
   });
 
-  const searchParams = useSearchParams();
-  const resetToken = searchParams.get("reset_token");
-  const resetId = searchParams.get("reset_id");
+  const resetToken = (await searchParams).resetToken;
+  const resetId = (await searchParams).resetId;
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
     setError(await resetChoosePassword(resetToken, resetId, data));

@@ -5,14 +5,16 @@ import { Card, CardContent, CardFooter } from "@/src/components/ui/card";
 import { getJWTpayload } from "@/src/lib/utils";
 import { verifyEmail } from "@/src/services/auth.service";
 import { AlertCircleIcon } from "lucide-react";
-import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function verifyEmailPage() {
+export default async function verifyEmailPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
   const [error, setError] = useState(null);
-  const searchParams = useSearchParams();
 
-  const verification_token = searchParams.get("verification_token");
+  const verification_token = (await searchParams).verification_token;
 
   useEffect(() => {
     const verify = async () => {

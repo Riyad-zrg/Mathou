@@ -10,23 +10,23 @@ services:
       - NODE_ENV=${NODE_ENV}
     volumes:
       - ./frontend:/frontend
-    # depends_on:
-    #   - app-back
+    depends_on:
+      - app-back
 
-  # app-back:
-  #   build:
-  #     context: ./backend
-  #     target: ${NODE_ENV}
-  #   image: app-back
-  #   command: sh -c "npm ci && npm run start:prod"
-  #   ports:
-  #     - "4000:4000"
-  #   environment:
-  #     - NODE_ENV=${NODE_ENV}
-  #   volumes:
-  #     - ./backend:/backend
-  #   depends_on:
-  #     - db
+  app-back:
+    build:
+      context: ./backend
+      target: ${NODE_ENV}
+    image: app-back
+    command: sh -c "npm ci && npm run start:prod"
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=${NODE_ENV}
+    volumes:
+      - ./backend:/backend
+    depends_on:
+      - db
 
   adminer:
     image: adminer
