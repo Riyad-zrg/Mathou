@@ -7,17 +7,16 @@ import { verifyEmail } from "@/src/services/auth.service";
 import { AlertCircleIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 
-export default async function verifyEmailPage({
+export default function verifyEmailPage({
   searchParams,
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const [error, setError] = useState(null);
 
-  const verification_token = (await searchParams).verification_token;
-
   useEffect(() => {
     const verify = async () => {
+      const verification_token = (await searchParams).verification_token;
       if (verification_token) {
         const jwtPayload = await getJWTpayload(verification_token);
         const result = await verifyEmail(verification_token, jwtPayload.email);

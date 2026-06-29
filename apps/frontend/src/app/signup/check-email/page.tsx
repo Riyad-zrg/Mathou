@@ -1,4 +1,3 @@
-"use client";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -10,7 +9,7 @@ import {
 import { Button } from "@/src/components/ui/button";
 import { Card, CardContent } from "@/src/components/ui/card";
 
-export default async function verifyEmailPage({
+export default async function checkEmailPage({
   searchParams,
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;

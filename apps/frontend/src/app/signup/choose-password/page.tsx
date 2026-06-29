@@ -19,7 +19,6 @@ import { Input } from "@/src/components/ui/input";
 import { choosePassword } from "@/src/services/auth.service";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertCircleIcon } from "lucide-react";
-import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import z from "zod";
@@ -76,7 +75,7 @@ const addFieldIssue = (field: string, ctx: z.RefinementCtx) => {
   });
 };
 
-export default async function ChoosePassword({
+export default function ChoosePassword({
   searchParams,
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -90,10 +89,8 @@ export default async function ChoosePassword({
     },
   });
 
-  const userEmail = (await searchParams).email;
-
   async function onSubmit(data: z.infer<typeof formSchema>) {
-    setError(await choosePassword(userEmail, data));
+    setError(await choosePassword((await searchParams).email, data));
   }
 
   return (
