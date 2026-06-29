@@ -1,5 +1,5 @@
 #Base
-FROM node:24 AS debelopment
+FROM node:24 AS build
 
 WORKDIR /backend
 COPY package*.json /.
@@ -13,14 +13,16 @@ COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 RUN ["chmod", "+x", "/docker-entrypoint.sh"]
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
+FROM build AS development
 CMD ["npm","run","start:dev"]
 
 #prod
 
 FROM node:24 AS production
 WORKDIR /backend
-COPY . .
-RUN npm ci
-CMD ["npm", "run", "start:prod"]
+COPY --from=build /backend/dist ./dist
+COPY --from=build /backend/package*.json ./
+
+CMD ["sh", "-c", "npm ci && npm run start:prod"]
 
 
