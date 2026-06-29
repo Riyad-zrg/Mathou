@@ -7,9 +7,9 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - NODE_ENV=${NODE_ENV}
-    # volumes:
-    #   - ./frontend:/frontend
+      - NODE_ENV=development
+    volumes:
+      - ./frontend:/frontend
     depends_on:
       - app-back
 
@@ -21,7 +21,7 @@ services:
     ports:
       - "4000:4000"
     environment:
-      - NODE_ENV=${NODE_ENV}
+      - NODE_ENV=development
     volumes:
       - ./backend:/backend
     depends_on:

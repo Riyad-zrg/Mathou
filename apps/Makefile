@@ -1,6 +1,9 @@
 .PHONY: up down build bashf bashb
 
 up:
+	docker compose -f compose.yaml -f compose.dev.yaml up -d
+
+prod:
 	docker compose up -d
 
 down:
