@@ -15,6 +15,17 @@ ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN npm run build
 
+FROM node:${NODE_VERSION} AS development
+
+WORKDIR /frontend
+COPY package*.json /.
+
+RUN npm install
+
+COPY . .
+EXPOSE 3000
+CMD ["npm", "run","dev"]
+
 FROM node:${NODE_VERSION} AS production
 
 ENV NEXT_TELEMETRY_DISABLED=1
