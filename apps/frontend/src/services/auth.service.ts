@@ -4,14 +4,17 @@ import { toast } from "sonner";
 export async function fetchAccessToken(data: any) {
   let isError = false;
   try {
-    const response = await fetch(`http://localhost:4000/auth/login`, {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/login`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: data.email, password: data.password }),
       },
-      body: JSON.stringify({ email: data.email, password: data.password }),
-    });
+    );
 
     if (!response.ok) {
       const result = await response.json();
@@ -34,17 +37,21 @@ export async function fetchAccessToken(data: any) {
 export async function signUp(data: any) {
   let isError = false;
   try {
-    const response = await fetch(`http://localhost:4000/auth/signup`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    console.log(`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/signup`);
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/signup`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: data.email,
+          firstname: data.firstname,
+          lastname: data.lastname,
+        }),
       },
-      body: JSON.stringify({
-        email: data.email,
-        firstname: data.firstname,
-        lastname: data.lastname,
-      }),
-    });
+    );
 
     if (!response.ok) {
       const result = await response.json();
@@ -61,7 +68,7 @@ export async function signUp(data: any) {
 }
 
 export async function logout() {
-  const url = `http://localhost:4000/auth/logout`;
+  const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/logout`;
   try {
     const response = await fetch(url, {
       method: "POST",
@@ -84,13 +91,16 @@ export async function verifyEmail(
 ) {
   let isError = false;
   try {
-    const response = await fetch(`http://localhost:4000/auth/verify-email`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/verify-email`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ token: token }),
       },
-      body: JSON.stringify({ token: token }),
-    });
+    );
     if (!response.ok) {
       const result = await response.json();
       throw new Error(result.message);
@@ -111,17 +121,20 @@ export async function choosePassword(
 ) {
   let isError = false;
   try {
-    const response = await fetch(`http://localhost:4000/auth/choose-password`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/choose-password`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: data.password,
+          confirmPassword: data.confirmPassword,
+        }),
       },
-      body: JSON.stringify({
-        email: email,
-        password: data.password,
-        confirmPassword: data.confirmPassword,
-      }),
-    });
+    );
     if (!response.ok) {
       const result = await response.json();
       throw new Error(result.message);
