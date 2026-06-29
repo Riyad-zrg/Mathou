@@ -23,6 +23,9 @@ WORKDIR /backend
 COPY --from=build /backend/dist ./dist
 COPY --from=build /backend/package*.json ./
 
+ENV PORT=4000
+ENV HOSTNAME="0.0.0.0"
+
 CMD ["sh", "-c", "npm ci && npm run start:prod"]
 
 
