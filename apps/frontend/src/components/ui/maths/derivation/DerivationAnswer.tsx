@@ -25,7 +25,7 @@ export default function DerivationAnswer({
         className="flex-1 h-full w-full bg-green-400 justify-center"
         onClick={handleClickOnAnswer}
       >
-        <CardContent className="text-4xl font-normal">{value}</CardContent>
+        <CardContent className="text-2xl md:text-4xl">{value}</CardContent>
       </Card>
     );
   }
@@ -35,7 +35,7 @@ export default function DerivationAnswer({
         className="flex-1 h-full w-full bg-red-500 justify-center"
         onClick={handleClickOnAnswer}
       >
-        <CardContent className="text-4xl font-normal">{value}</CardContent>
+        <CardContent className="text-2xl md:text-4xl">{value}</CardContent>
       </Card>
     );
   }
@@ -49,7 +49,7 @@ export default function DerivationAnswer({
         handleClickOnAnswer();
       }}
     >
-      <CardContent className="text-4xl font-normal">{value}</CardContent>
+      <CardContent className="text-md md:text-4xl">{value}</CardContent>
     </Card>
   );
 }

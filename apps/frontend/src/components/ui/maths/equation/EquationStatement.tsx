@@ -11,7 +11,7 @@ export default function EquationStatement({
     <div className="questionStatement">
       <Item variant="outline_full_h">
         <ItemContent>
-          <ItemTitle>{operation}</ItemTitle>
+          <ItemTitle className="text-2xl md:text-4xl">{operation}</ItemTitle>
         </ItemContent>
       </Item>
     </div>

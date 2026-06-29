@@ -40,7 +40,7 @@ export default function DerivationAnswersGroup({
   }, [result]);
 
   return (
-    <div className="grid grid-cols-2 h-full items-center gap-5 p-2 questionAnswer lg:px-30 lg:py-10">
+    <div className="grid grid-cols-2 h-full items-center gap-5 p-2 questionAnswer lg:px-30 lg:py-10 ">
       {resultList.map((answerValue, id) => (
         <DerivationAnswer
           value={

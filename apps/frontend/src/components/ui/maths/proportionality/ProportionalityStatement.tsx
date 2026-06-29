@@ -17,21 +17,27 @@ export default function ProportionalityStatement({
     <div className="questionStatement">
       <Item variant="outline_full_h">
         <ItemContent>
-          <ItemTitle className="text-3xl pb-7 font-normal">
+          <ItemTitle className="text-start md:text-center text-sm md:text-3xl sm:pb-2 md:pb-7 font-normal">
             {problemObject.enonce}
           </ItemTitle>
           <section className="w-full pb-5">
             <table className="border-5 w-full text-3xl">
               <tbody>
                 <tr className="border-2">
-                  <td className="border w-150 p-2 ">{problemObject.valeur1}</td>
-                  <td className="border">{number1}</td>
-                  <td className="border">{number3}</td>
+                  <td className="border w-150 p-2 text-sm md:text-2xl">
+                    {problemObject.valeur1}
+                  </td>
+                  <td className="border text-sm md:text-2xl p-2">{number1}</td>
+                  <td className="border text-sm md:text-2xl p-2">{number3}</td>
                 </tr>
-                <tr className="border ">
-                  <td className="border p-2">{problemObject.valeur2}</td>
-                  <td className="border">{number2}</td>
-                  <td className="border font-black text-red-500">?</td>
+                <tr className="border text-sm md:text-2xl">
+                  <td className="border p-2 text-sm md:text-2xl">
+                    {problemObject.valeur2}
+                  </td>
+                  <td className="border text-sm md:text-2xl">{number2}</td>
+                  <td className="border font-black text-red-500 text-sm md:text-2xl">
+                    ?
+                  </td>
                 </tr>
               </tbody>
             </table>
