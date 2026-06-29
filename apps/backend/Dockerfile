@@ -18,7 +18,7 @@ CMD ["npm","run","start:dev"]
 #prod
 
 FROM node:24 AS production
-WORKDIR /frontend
+WORKDIR /backend
 COPY . ./
 RUN npm ci
 CMD ["npm", "run", "start:prod"]
