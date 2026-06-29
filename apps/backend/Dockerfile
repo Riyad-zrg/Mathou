@@ -23,7 +23,6 @@ WORKDIR /backend
 COPY --from=build /backend/dist ./dist
 COPY --from=build /backend/package*.json ./
 
-ENV CLIENT_URL="https://backend-production-40af.up.railway.app/"
 ENV PORT=4000
 ENV HOSTNAME="0.0.0.0"
 
