@@ -23,7 +23,7 @@ COPY package*.json /.
 RUN npm install
 
 COPY . .
-EXPOSE 3000
+EXPOSE ${PORT}
 CMD ["npm", "run","dev"]
 
 FROM node:${NODE_VERSION} AS production
@@ -38,6 +38,6 @@ RUN chown node:node .next
 COPY --from=builder /frontend/.next/standalone ./
 COPY --from=builder /frontend/.next/static ./.next/static
 
-EXPOSE 3000
+EXPOSE ${PORT}
 
 CMD ["node", "server.js"]
