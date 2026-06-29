@@ -1,21 +1,17 @@
-ARG NODE_VERSION=24
+FROM node:lts-alpine AS base
 
-
-FROM node:${NODE_VERSION} AS builder
-
+FROM base AS deps
 WORKDIR /frontend
+COPY package*.json ./
+RUN npm ci
 
-COPY package*.json .
-
-RUN npm i
-
+FROM base AS builder
+WORKDIR /frontend
+COPY --from=deps /frontend/node_modules ./node_modules
 COPY . .
-
-ENV NEXT_TELEMETRY_DISABLED=1
-
 RUN npm run build
 
-FROM node:${NODE_VERSION} AS development
+FROM node:24 AS development
 
 WORKDIR /frontend
 COPY package*.json /.
@@ -26,18 +22,22 @@ COPY . .
 EXPOSE ${PORT}
 CMD ["npm", "run","dev"]
 
-FROM node:${NODE_VERSION} AS production
-
+FROM base AS production
 WORKDIR /frontend
 
-ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_ENV=production
 
-RUN mkdir .next
-RUN chown node:node .next
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
 
-COPY --from=builder /frontend/.next/standalone ./
-COPY --from=builder /frontend/.next/static ./.next/static
+COPY --from=builder /frontend/public ./public
+COPY --from=builder --chown=nextjs:nodejs /frontend/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /frontend/.next/static ./.next/static
 
-EXPOSE ${PORT}
+USER nextjs
+
+EXPOSE 3000
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
 
 CMD ["node", "server.js"]
