@@ -13,6 +13,8 @@ COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 RUN ["chmod", "+x", "/docker-entrypoint.sh"]
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
+FROM build AS development
+CMD ["npm","run","start:dev"]
 
 #prod
 
