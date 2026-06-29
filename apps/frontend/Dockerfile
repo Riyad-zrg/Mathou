@@ -5,7 +5,7 @@ FROM node:${NODE_VERSION} AS builder
 
 WORKDIR /frontend
 
-COPY package*.json /.
+COPY package*.json .
 
 RUN npm i
 
@@ -27,6 +27,8 @@ EXPOSE 3000
 CMD ["npm", "run","dev"]
 
 FROM node:${NODE_VERSION} AS production
+
+WORKDIR /frontend
 
 ENV NEXT_TELEMETRY_DISABLED=1
 
