@@ -15,7 +15,7 @@ export default async function verifyEmailPage({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const userEmail = (await searchParams).userEmail;
+  const userEmail = (await searchParams).email;
 
   return (
     <div className="flex flex-col text-center w-full p-8 gap-8 main">
