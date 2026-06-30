@@ -38,6 +38,8 @@ export async function signUp(data: any) {
   let isError = false;
   try {
     console.log(`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/signup`);
+    console.log(process.env.NODE_ENV);
+
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/signup`,
       {
