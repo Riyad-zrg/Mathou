@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { toast } from "sonner";
 
-const serverUrl = process.env.SERVER_URL;
+const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:4000";
 
 export async function fetchAccessToken(data: any) {
   let isError = false;

@@ -25,9 +25,6 @@ CMD ["npm", "run","dev"]
 FROM base AS production
 WORKDIR /frontend
 
-ENV NODE_ENV=productionazaz
-ENV SERVER_URL="https://backend-production-40af.up.railway.app/"
-
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
