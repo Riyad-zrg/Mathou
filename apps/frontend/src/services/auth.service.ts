@@ -36,9 +36,6 @@ export async function fetchAccessToken(data: any) {
 export async function signUp(data: any) {
   let isError = false;
   try {
-    console.log(`${serverUrl}/auth/signup`);
-    console.log(process.env.NODE_ENV);
-
     const response = await fetch(`${serverUrl}/auth/signup`, {
       method: "POST",
       headers: {
