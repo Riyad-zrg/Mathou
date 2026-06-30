@@ -9,7 +9,7 @@ FROM base AS builder
 WORKDIR /frontend
 COPY --from=deps /frontend/node_modules ./node_modules
 COPY . .
-ENV NEXT_PUBLIC_SERVER_URL="https://backend-production-40af.up.railway.app/"
+ENV NEXT_PUBLIC_SERVER_URL="https://backend-production-40af.up.railway.app"
 RUN npm run build
 
 FROM node:24 AS development
