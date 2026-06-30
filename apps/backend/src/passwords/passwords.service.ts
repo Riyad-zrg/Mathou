@@ -53,7 +53,7 @@ export class PasswordsService {
       from: 'Socatoa <noreply@contact.socatoa.eu>',
       to: email,
       subject: 'Réinitialisation de mot de passe',
-      text: `Voici le lien pour réinitialiser votre mot de passe : ${process.env.CLIENT_URL}/password-reset/choose-password?reset_token=${resetToken}&reset_id=${resetObj.id}`,
+      text: `Voici le lien pour réinitialiser votre mot de passe : ${process.env.NEXT_PUBLIC_CLIENT_URL}/password-reset/choose-password?reset_token=${resetToken}&reset_id=${resetObj.id}`,
     });
 
     return {
