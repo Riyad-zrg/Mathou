@@ -1,20 +1,19 @@
 import { redirect } from "next/navigation";
 import { toast } from "sonner";
 
+const serverUrl = process.env.SERVER_URL || "http://localhost:4000";
+
 export async function fetchAccessToken(data: any) {
   let isError = false;
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/login`,
-      {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: data.email, password: data.password }),
+    const response = await fetch(`${serverUrl}/auth/login`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
+      body: JSON.stringify({ email: data.email, password: data.password }),
+    });
 
     if (!response.ok) {
       const result = await response.json();
@@ -37,23 +36,20 @@ export async function fetchAccessToken(data: any) {
 export async function signUp(data: any) {
   let isError = false;
   try {
-    console.log(`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/signup`);
+    console.log(`${serverUrl}/auth/signup`);
     console.log(process.env.NODE_ENV);
 
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/signup`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: data.email,
-          firstname: data.firstname,
-          lastname: data.lastname,
-        }),
+    const response = await fetch(`${serverUrl}/auth/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
+      body: JSON.stringify({
+        email: data.email,
+        firstname: data.firstname,
+        lastname: data.lastname,
+      }),
+    });
 
     if (!response.ok) {
       const result = await response.json();
@@ -70,7 +66,7 @@ export async function signUp(data: any) {
 }
 
 export async function logout() {
-  const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/logout`;
+  const url = `${serverUrl}/auth/logout`;
   try {
     const response = await fetch(url, {
       method: "POST",
@@ -93,16 +89,13 @@ export async function verifyEmail(
 ) {
   let isError = false;
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/verify-email`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ token: token }),
+    const response = await fetch(`${serverUrl}/auth/verify-email`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
+      body: JSON.stringify({ token: token }),
+    });
     if (!response.ok) {
       const result = await response.json();
       throw new Error(result.message);
@@ -123,20 +116,17 @@ export async function choosePassword(
 ) {
   let isError = false;
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/choose-password`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          password: data.password,
-          confirmPassword: data.confirmPassword,
-        }),
+    const response = await fetch(`${serverUrl}/auth/choose-password`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
+      body: JSON.stringify({
+        email: email,
+        password: data.password,
+        confirmPassword: data.confirmPassword,
+      }),
+    });
     if (!response.ok) {
       const result = await response.json();
       throw new Error(result.message);

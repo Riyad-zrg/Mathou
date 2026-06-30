@@ -38,6 +38,5 @@ USER nextjs
 EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
-ENV NEXT_PUBLIC_SERVER_URL="https://backend-production-40af.up.railway.app/"
 
 CMD ["node", "server.js"]
