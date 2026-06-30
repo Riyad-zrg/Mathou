@@ -1,19 +1,18 @@
 import { redirect } from "next/navigation";
 import { toast } from "sonner";
 
+const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || "${serverUrl}";
+
 export async function passwordResetCheckEmail(data: any) {
   let isError = false;
   try {
-    const response = await fetch(
-      `http://localhost:4000/password-reset/verify-email`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: data.email }),
+    const response = await fetch(`${serverUrl}/password-reset/verify-email`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
+      body: JSON.stringify({ email: data.email }),
+    });
 
     if (!response.ok) {
       const result = await response.json();
@@ -24,9 +23,7 @@ export async function passwordResetCheckEmail(data: any) {
     return error.message;
   } finally {
     if (!isError) {
-      redirect(
-        `http://localhost:3000/password-reset/check-email?email=${data.email}`,
-      );
+      redirect(`${serverUrl}/password-reset/check-email?email=${data.email}`);
     }
   }
 }
@@ -39,7 +36,7 @@ export async function resetChoosePassword(
   let isError = false;
   try {
     const response = await fetch(
-      `http://localhost:4000/password-reset/update/password`,
+      `${serverUrl}/password-reset/update/password`,
       {
         method: "POST",
         headers: {

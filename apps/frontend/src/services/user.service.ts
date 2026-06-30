@@ -1,5 +1,7 @@
+const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:4000";
+
 export async function getUserById(id: number) {
-  const url = `http://localhost:4000/users/${id}`;
+  const url = `${serverUrl}/users/${id}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {

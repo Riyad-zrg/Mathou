@@ -59,7 +59,7 @@ export class AuthService {
       from: 'Socatoa <noreply@contact.socatoa.eu>',
       to: email,
       subject: "Confirmation d'adresse e-mail",
-      text: `Voici le lien pour vérifier votre adresse e-mail : http://localhost:3000/signup/verify?verification_token=${verificationToken}`,
+      text: `Voici le lien pour vérifier votre adresse e-mail : ${process.env.CLIENT_URL}/signup/verify?verification_token=${verificationToken}`,
     });
 
     return { message: 'Merci de vérifier votre adresse e-mail.' };
