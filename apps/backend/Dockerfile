@@ -21,6 +21,7 @@ CMD ["npm","run","start:dev"]
 FROM node:24 AS production
 WORKDIR /backend
 COPY --from=build /backend/dist ./dist
+COPY --from=build /backend/prisma/ ./prisma
 COPY --from=build /backend/package*.json ./
 
 ENV PORT=4000
