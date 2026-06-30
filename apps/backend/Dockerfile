@@ -22,6 +22,7 @@ FROM node:24 AS production
 WORKDIR /backend
 COPY --from=build /backend/dist ./dist
 COPY --from=build /backend/prisma/ ./prisma
+COPY --from=build /backend/prisma.config.ts ./
 COPY --from=build /backend/package*.json ./
 
 ENV PORT=4000
