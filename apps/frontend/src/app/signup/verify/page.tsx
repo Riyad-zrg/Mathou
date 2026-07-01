@@ -17,6 +17,7 @@ export default function verifyEmailPage({
   useEffect(() => {
     const verify = async () => {
       const verification_token = (await searchParams).verification_token;
+      console.log(verification_token);
       if (verification_token) {
         const jwtPayload = await getJWTpayload(verification_token);
         const result = await verifyEmail(verification_token, jwtPayload.email);
