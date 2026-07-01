@@ -44,7 +44,7 @@ export default async function checkEmailPage({
           </CardContent>
         </Card>
 
-        <a href="/" className="w-4/10">
+        <a href="/login" className="md:w-4/10">
           <Button className="w-full">Retourner à l'accueil</Button>
         </a>
       </div>

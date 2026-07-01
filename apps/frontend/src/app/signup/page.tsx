@@ -71,7 +71,7 @@ export default function LoginForm() {
         </div>
       )}
 
-      <section className="text-center text-2xl font-semibold">
+      <section className="text-center text-2xl font-semibold pt-5 md:pt-0">
         Créer un compte
       </section>
 

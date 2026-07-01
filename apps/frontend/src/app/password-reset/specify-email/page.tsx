@@ -63,14 +63,14 @@ export default function ResetPasswordSpecifyEmail() {
         </div>
       )}
 
-      <section className="text-center text-lg pt-15">
-        Renseignez l'adresse e-mail du compte dont vous souhaitez changer le mot
-        de passe
+      <section className="text-center pt-15 text-sm md:text-lg">
+        Veuillez renseigner l'adresse e-mail du compte dont vous souhaitez
+        changer le mot de passe.
       </section>
 
       <div className="flex flex-col place-items-center pt-5 gap-5">
         <form
-          className="w-6/10"
+          className="w-full md:w-3/10 md:p-2"
           id="password-reset-email-form"
           onSubmit={form.handleSubmit(onSubmit)}
         >
