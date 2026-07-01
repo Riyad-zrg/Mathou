@@ -25,11 +25,11 @@ COPY --from=build /backend/prisma/ ./prisma
 COPY --from=build /backend/prisma.config.ts ./
 COPY --from=build /backend/package*.json ./
 
-RUN npx prisma migrate deploy
+RUN npm ci
 
 ENV PORT=4000
 ENV HOSTNAME="0.0.0.0"
 
-CMD ["sh", "-c", "npm ci && npm run start:prod"]
+CMD ["sh", "-c", "npx prisma migrate deploy && npm run start:prod"]
 
 
