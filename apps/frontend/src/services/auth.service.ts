@@ -107,7 +107,10 @@ export async function verifyEmail(
   }
 }
 
-export async function choosePassword(email: string | null, data: any) {
+export async function choosePassword(
+  email: string | string[] | undefined,
+  data: any,
+) {
   let isError = false;
   try {
     const response = await fetch(`${serverUrl}/auth/choose-password`, {
