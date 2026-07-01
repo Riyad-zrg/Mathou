@@ -16,7 +16,7 @@ export default function verifyEmailPage() {
 
   const pathname = usePathname();
 
-  console.log(usePathname);
+  console.log(pathname);
   useEffect(() => {
     const verify = async () => {
       const verification_token = searchParams.get("verification_token");
