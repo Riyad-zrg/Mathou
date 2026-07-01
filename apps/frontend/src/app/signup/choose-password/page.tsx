@@ -19,6 +19,7 @@ import { Input } from "@/src/components/ui/input";
 import { choosePassword } from "@/src/services/auth.service";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertCircleIcon } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import z from "zod";
@@ -75,11 +76,7 @@ const addFieldIssue = (field: string, ctx: z.RefinementCtx) => {
   });
 };
 
-export default function ChoosePassword({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
+export default function ChoosePassword() {
   const [error, setError] = useState(null);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -88,9 +85,10 @@ export default function ChoosePassword({
       confirmPassword: "",
     },
   });
+  const searchParams = useSearchParams();
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
-    setError(await choosePassword((await searchParams).email, data));
+    setError(await choosePassword(searchParams.get("email"), data));
   }
 
   return (

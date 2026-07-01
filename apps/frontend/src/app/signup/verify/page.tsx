@@ -6,18 +6,14 @@ import { getJWTpayload } from "@/src/lib/utils";
 import { verifyEmail } from "@/src/services/auth.service";
 import { AlertCircleIcon } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
-export default function verifyEmailPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
+export default function verifyEmailPage() {
   const [error, setError] = useState(null);
-
+  const searchParams = useSearchParams();
   useEffect(() => {
     const verify = async () => {
-      const verification_token = (await searchParams).verification_token;
-      console.log(verification_token);
+      const verification_token = searchParams.get("verification_token");
       if (verification_token) {
         const jwtPayload = await getJWTpayload(verification_token);
         const result = await verifyEmail(verification_token, jwtPayload.email);

@@ -9,13 +9,12 @@ import {
 } from "@/src/components/ui/breadcrumb";
 import { Button } from "@/src/components/ui/button";
 import { Card, CardContent } from "@/src/components/ui/card";
+import { useSearchParams } from "next/navigation";
 
-export default async function verifyEmailPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
-  const userEmail = (await searchParams).email;
+export default function verifyEmailPage() {
+  const searchParams = useSearchParams();
+
+  const userEmail = searchParams.get("email");
 
   return (
     <div className="flex flex-col text-center w-full p-8 gap-8 main">

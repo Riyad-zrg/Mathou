@@ -23,14 +23,14 @@ export async function passwordResetCheckEmail(data: any) {
     return error.message;
   } finally {
     if (!isError) {
-      redirect(`${serverUrl}/password-reset/check-email?email=${data.email}`);
+      redirect(`/password-reset/check-email?email=${data.email}`);
     }
   }
 }
 
 export async function resetChoosePassword(
-  token: string | string[] | undefined,
-  resetId: string | string[] | undefined,
+  token: string | null,
+  resetId: string | null,
   data: any,
 ) {
   let isError = false;
