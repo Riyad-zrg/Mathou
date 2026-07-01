@@ -5,8 +5,8 @@ export default async function ChoosePasswordPage({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const resetId = (await searchParams).resetId;
-  const resetToken = (await searchParams).resetToken;
+  const resetId = (await searchParams).reset_id;
+  const resetToken = (await searchParams).reset_token;
 
   return (
     <ChoosePasswordComponent
