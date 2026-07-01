@@ -5,6 +5,9 @@ export default async function verifyEmailPage({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const userEmail = (await searchParams).email;
+  let userEmail = (await searchParams).email;
+  if (typeof userEmail === "string") {
+    userEmail = userEmail.toLowerCase();
+  }
   return <CheckEmailComponent userEmail={userEmail}></CheckEmailComponent>;
 }

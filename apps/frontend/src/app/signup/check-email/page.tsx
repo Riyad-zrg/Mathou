@@ -14,8 +14,10 @@ export default async function checkEmailPage({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const userEmail = (await searchParams).email;
-
+  let userEmail = (await searchParams).email;
+  if (typeof userEmail === "string") {
+    userEmail = userEmail.toLowerCase();
+  }
   return (
     <div className="flex flex-col text-center w-full p-8 gap-8 main">
       <Breadcrumb>

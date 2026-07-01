@@ -33,6 +33,7 @@ export class AuthService {
     firstname: string,
     lastname: string,
   ): Promise<{ message: string }> {
+    email = email.toLowerCase();
     const existingUser = await this.userService.findUser({ email });
 
     if (existingUser) {
@@ -101,6 +102,7 @@ export class AuthService {
     password: string,
     confirmPassword: string,
   ): Promise<{ message: string }> {
+    email = email.toLowerCase();
     if (password !== confirmPassword) {
       throw new BadRequestException('Les mots de passe ne correspondent pas.');
     }
@@ -132,6 +134,7 @@ export class AuthService {
     incomingPassword: string,
     response: Response,
   ): Promise<void> {
+    email = email.toLowerCase();
     const user = await this.userService.findUser({ email: email });
 
     if (!user) {

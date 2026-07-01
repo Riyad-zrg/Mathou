@@ -24,6 +24,8 @@ export class PasswordsService {
   ) {}
 
   async passwordResetCheckEmail(email: string): Promise<{ message: string }> {
+    email = email.toLowerCase();
+
     const user = await this.userService.findUser({ email: email });
 
     if (!user) {
